@@ -27,7 +27,7 @@ class multiproxy:
 				upserv = "95.216.87.124"
 				uport = 8080
 			if self.num == 5:
-				upserv = "135.181.116.165"
+				upserv = "192.181.116.165"
 				uport = 8080
 			if self.num == 6:
 				upserv = "95.216.87.96"
