@@ -1,0 +1,25 @@
+{
+  "name": "zalert",
+  "version": "4.0.0",
+  "description": "hackers automation",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "config": "^3.3.9",
+    "crypto-js": "^4.1.1",
+    "crypto": "^1.0.1",
+    "express": "^4.18.2",
+    "request": "^2.88.2",
+    "snippet": "file:libs/snippet",
+    "outgoing": "file:libs/outgoing",
+    "socket.io": "^4.7.2",
+    "xlsx": "^0.18.5",
+    "@types/node": "^20.12.5",
+    "prettier": "^2.8.3",
+    "promises": "^0.2.5",
+    "puppeteer": "^19.5.2",
+    "socket.io-client": "^4.5.4"
+  },
+  "scripts": {
+    "start": "node --max-old-space-size=20480 app.js"
+  }
+}
