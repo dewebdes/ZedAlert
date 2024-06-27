@@ -1,7 +1,9 @@
 {
   "programs": {
-    "hackerone-key": "",
-    "hackerone-user": "",
-    "intigriti-key": ""
+    "hackerone-key": "...",
+    "hackerone-user": "...",
+    "intigriti-key": "..."
+  },"db": {
+    "conn": "http://localhost/zalert/dbtool.php"
   }
 }

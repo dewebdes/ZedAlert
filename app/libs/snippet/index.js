@@ -149,3 +149,7 @@ exports.addPercentage = (number, percentage) => {
 	const decimalPercentage = percentage / 100;
 	return number + (number * decimalPercentage);
 }
+
+exports.onlyUnique = (value, index, array) => {
+	return array.indexOf(value) === index;
+}
