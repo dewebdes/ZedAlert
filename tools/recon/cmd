@@ -1,0 +1,11 @@
+./fallparams -u https://fleet.toyota.com/ftc/public/fleet/loadSubmitCases.htm -crawl -output out011.txt
+./fallparams -u https://fleet.toyota.com/ftc/public/fleet/loadSubmitCases.htm -crawl -s 12000 -output out011.txt
+
+./x8 -u "https://fleet.toyota.com/ftc/public/fleet/loadSubmitCases.htm" -w out011.txt -o out012.txt
+./x8 -u "https://fleet.toyota.com/ftc/public/fleet/loadSubmitCases.htm" -w out011.txt -o out013.txt -x "http://127.0.0.1:8080"
+./x8 -u "https://fleet.toyota.com/ftc/public/fleet/loadSubmitCases.htm" -w out011.txt -o out013.txt -d 12000 -x "http://127.0.0.1:8080"
+
+cat domains.txt | waybackurls > urls
+echo "https://fleet.toyota.com/" | ./waybackurls > bakurls001.txt
+echo "http://35.190.70.41/" | ./waybackurls > bak-001.txt
+

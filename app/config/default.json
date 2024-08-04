@@ -1,0 +1,11 @@
+{
+  "programs": {
+    "hackerone-key": "...",
+    "hackerone-user": "...",
+    "intigriti-key": "..."
+  },"db": {
+    "conn": "http://localhost/dbtool.php"
+  },"recon":{
+    "spider-url": "http://spider-ip:5001/"
+  }
+}

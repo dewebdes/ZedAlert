@@ -1,0 +1,11 @@
+hackerone: 
+	https://hackerone.com/settings/api_token/edit
+	./bbscope h1 -t <YOUR_TOKEN> -u <YOUR_H1_USERNAME> -b -o t
+	
+	
+intigriti: 
+	https://app.intigriti.com/researcher/personal-access-tokens
+	./bbscope it -t <YOUR_TOKEN> -o tu --oos
+	
+
+

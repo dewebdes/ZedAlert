@@ -1,0 +1,16 @@
+child:
+
+iptables -A INPUT -p tcp --dport 8080 --source 192.181.116.150,192.181.116.151,192.181.116.157,192.181.116.165 -j ACCEPT;
+iptables -A INPUT -p tcp --dport 8080 -j DROP;
+nohup ./mitmdump --set block_global=false --ssl-insecure &
+
+mother:
+
+kill -9 $(sudo lsof -t -i:8080)
+iptables -A INPUT -p tcp --dport 8080 --source 192.181.116.150,192.181.116.151,192.181.116.157,192.181.116.165 -j ACCEPT;
+iptables -A INPUT -p tcp --source 192.181.116.150,192.181.116.151,192.181.116.157,192.181.116.165 -j ACCEPT;
+iptables -A INPUT -p tcp --dport 8080 --source 192.181.116.150,192.181.116.151,192.181.116.157,192.181.116.165 -j ACCEPT;
+nohup ./mitmdump --set block_global=false --ssl-insecure -s multiproxy.py &
+nohup ./mitmdump --set block_global=false --ssl-insecure -s multiproxy.py > /dev/null 2>&1&
+
+curl -x http://192.181.116.165:8080 -L http://ident.me
