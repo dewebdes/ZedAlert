@@ -1,4 +1,4 @@
-<ul style='font-family:tahoma;list-style:none;'>
+<p style='font-family:tahoma;list-style:none;'>
 <li>1.	نصب Apache, MySQL, PHP, PHPMyadmin روی ماشین لینوکس لوکال</li>
 <li>2.	git clone https://github.com/dewebdes/ZedAlert.git</li>
 <li>3.	cd ZedAlert</li>
@@ -21,7 +21,7 @@
 <li>20.	node --max-old-space-size=100000 app2.js | tee log-02.txt</li>
 <li>21.	node --max-old-space-size=100000 app3.js | tee log-03.txt</li>
 <li>22.	node --max-old-space-size=100000 app4.js | tee log-04.txt</li>
-</ul>
+</p>
 <hr>
 <img src='https://github.com/dewebdes/ZedAlert/blob/main/image/banner-cropped.jpg' />
 <h5>#blackhat #bugbounty #watchtower #recon #fuzzing #hackingtools #automation</h5>
