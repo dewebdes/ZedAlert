@@ -1,0 +1,2 @@
+Function('al'+'ert(123)')()
+

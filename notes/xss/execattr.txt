@@ -1,0 +1,3 @@
+
+<iframe srcdoc="&lt;svg onload=alert(21)&gt;"></iframe>
+

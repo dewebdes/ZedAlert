@@ -1,0 +1,7 @@
+1.	&#xHEX
+2.	&#DEC
+3.	&NAME
+4.	\u00HEX
+5.	\OCTAL
+6.	%HEX
+

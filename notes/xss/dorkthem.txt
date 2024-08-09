@@ -1,0 +1,3 @@
+
+site:twitter.com + intext:"xss" + intext:"input" + intext:"type=" + intext:"hidden"
+

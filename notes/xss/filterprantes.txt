@@ -1,0 +1,3 @@
+alert?.(origin)
+window.valueOf=alert;window+1
+

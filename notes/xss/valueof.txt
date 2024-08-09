@@ -1,0 +1,2 @@
+window.valueOf=alert;window+2
+
