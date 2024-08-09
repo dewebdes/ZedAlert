@@ -1,0 +1,37 @@
+<script>
+    function globalSearch(startObject, value) {
+    var stack = [[startObject,'']];
+    var searched = [];
+    var found = false;
+
+    var isArray = function(test) {
+        return Object.prototype.toString.call( test ) === '[object Array]';
+    }
+
+    while(stack.length) {
+        var fromStack = stack.pop();
+        var obj = fromStack[0];
+        var address = fromStack[1];
+
+        if( typeof obj == typeof value && obj.indexOf(value)>-1) {
+            var found = address;
+            break;
+        }else if(typeof obj == "object" && searched.indexOf(obj) == -1){
+           if ( isArray(obj) ) {
+              var prefix = '[';
+              var postfix = ']';
+           }else {
+              var prefix = '.';
+              var postfix = '';
+           }
+           for( i in obj ) {
+              stack.push( [ obj[i], address + prefix + i + postfix ] );
+           }
+           searched.push(obj);
+        }
+    }
+    return found == '' ? true : found;
+}
+var obj1 = {cell1:{name:'reflect2'}};
+alert(globalSearch(window,'reflect'));
+</script>

@@ -1,0 +1,39 @@
+<html>
+    <body>
+        <button onclick="checkresults();return false;">Check Results</button>
+        <div id="discover"></div>
+        <div id="testdv"></div>
+        <script>
+        
+            var maxuni = 0;
+            var result = [];
+            const worked = p => result.push(p);
+            var i=0;
+            for (i=0; i<0x7FFFFFFF; ++i) {
+                var div = document.createElement('div');
+                div.innerHTML = `<img${String.fromCodePoint(i)}src${String.fromCodePoint(i)}onerror=worked(${i})>`
+                document.getElementById('testdv').appendChild(div);    
+            }
+
+            maxuni = i;
+
+            function checkresults(){
+                var htm = "";
+                i = 0;
+                for(i=0;i<=result.length-1;i++){
+                    htm += '<p>' + result[i] + ' === ' + String.fromCodePoint(result[i]) + '<br>' + '<textarea>' + `<img${String.fromCodePoint(result[i])}src${String.fromCodePoint(result[i])}onerror=alert(${result[i]})>` + '</textarea></p><hr>';
+                }
+                htm = "<h1>Discover chars from " + i +" charecters: " + result.length + " </h1>" + htm;
+                document.getElementById('discover').innerHTML = htm;
+                document.getElementById('testdv').innerHTML = '';
+            }
+            
+        </script>
+        <style>
+            textarea{
+                width: 400px;
+            }
+        </style>
+        
+    </body>
+</html>
