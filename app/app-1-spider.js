@@ -264,7 +264,7 @@ async function spider(){
         if(status == 'RUNING'){
             isrun = true;
         }
-        if(status == 'FINISHED'){
+        if((status == 'FINISHED') || (status == 'ABORT-REQUESTED')){
             var sql = "SELECT * FROM program WHERE (domain='" + domain + "') and (status='spider-start') limit 1";
             var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
             console.log(':spider-01' + ':::' + body2 + '\n**endlog**\n');
@@ -305,36 +305,95 @@ async function spider(){
 
                 for (var j = 0; j <= obj.length - 1; j++) {
                     var sub = obj[j][2];
-                    if (namecol.indexOf(sub) == -1) {
-                        namecol[namecol.length] = sub;
-                        await appendToFile('sub.txt', sub + '\n');
 
-                        var sql = "SELECT * FROM targets WHERE (programid=" + res[0].id + ") and (addr='" + sub + "') limit 1";
-                        var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
-                        console.log(':spider-030' + ':::' + body2 + '\n**endlog**\n');
-                        var fnd2 = false;
-                        var res2 = [];
-                        try {
-                            res2 = JSON.parse(body2.trim());
-                            if (res2.length > 0) {
-                                fnd2 = true;
-                            }
-                        } catch (ex) { fnd2 = false; }
+                    var subar = [obj[j][1],obj[j][2]];
 
-                        if(fnd2 == false){
+                    for(var z=0;z<=subar.length-1;z++){
+                        sub = subar[z];
+                        if(sub.length > 63){continue;}
+                        if (namecol.indexOf(sub) == -1) {
+                            namecol[namecol.length] = sub;
+                            await appendToFile('sub.txt', sub + '\n');
 
-                            var vals = res[0].id + ",";
-                            vals += "'" + sub + "',";
-                            vals += "'" + 'na' + "',";
-                            vals += "now(),now()";
-                            var sql = "INSERT INTO targets (programid, addr, status, cdate, udate) VALUES (" + vals + ")";// + res[0].id;
+                            var sql = "SELECT * FROM targets WHERE (programid=" + res[0].id + ") and (addr='" + sub + "') limit 1";
                             var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
-                            console.log(':spider-03' + ':::' + body2 + '\n**endlog**\n');
+                            console.log(':spider-030' + ':::' + body2 + '\n**endlog**\n');
+                            var fnd2 = false;
+                            var res2 = [];
+                            try {
+                                res2 = JSON.parse(body2.trim());
+                                if (res2.length > 0) {
+                                    fnd2 = true;
+                                }
+                            } catch (ex) { fnd2 = false; }
+
+                            if(fnd2 == false){
+
+                                var vals = res[0].id + ",";
+                                vals += "'" + sub + "',";
+                                vals += "'" + 'na' + "',";
+                                vals += "now(),now()";
+                                var sql = "INSERT INTO targets (programid, addr, status, cdate, udate) VALUES (" + vals + ")";// + res[0].id;
+                                var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
+                                console.log(':spider-03' + ':::' + body2 + '\n**endlog**\n');
+                            }
                         }
                     }
                 }
 
                 console.log(namecol);
+
+                //===============================
+
+                var url = global.spiderUrl + "scaneventresults";
+                var domain = res[0].domain;
+                var body = "id=" + id + "&eventType=INTERNET_NAME";
+                var bak = await spider_post(url,body);
+                console.log(bak);
+
+                var obj = JSON.parse(bak.trim());
+
+                for (var j = 0; j <= obj.length - 1; j++) {
+                    var sub = obj[j][2];
+
+                    var subar = [obj[j][1],obj[j][2]];
+
+                    for(var z=0;z<=subar.length-1;z++){
+                        sub = subar[z];
+                        if(sub.length > 63){continue;}
+                        if (namecol.indexOf(sub) == -1) {
+                            namecol[namecol.length] = sub;
+                            await appendToFile('sub.txt', sub + '\n');
+
+                            var sql = "SELECT * FROM targets WHERE (programid=" + res[0].id + ") and (addr='" + sub + "') limit 1";
+                            var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
+                            console.log(':spider-030' + ':::' + body2 + '\n**endlog**\n');
+                            var fnd2 = false;
+                            var res2 = [];
+                            try {
+                                res2 = JSON.parse(body2.trim());
+                                if (res2.length > 0) {
+                                    fnd2 = true;
+                                }
+                            } catch (ex) { fnd2 = false; }
+
+                            if(fnd2 == false){
+
+                                var vals = res[0].id + ",";
+                                vals += "'" + sub + "',";
+                                vals += "'" + 'na' + "',";
+                                vals += "now(),now()";
+                                var sql = "INSERT INTO targets (programid, addr, status, cdate, udate) VALUES (" + vals + ")";// + res[0].id;
+                                var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
+                                console.log(':spider-03' + ':::' + body2 + '\n**endlog**\n');
+                            }
+                        }
+                    }
+                }
+
+                console.log(namecol);
+
+                //===============================
 
                 var url = global.spiderUrl + "scaneventresults";
                 var domain = res[0].domain;
@@ -346,45 +405,117 @@ async function spider(){
 
                 for (var j = 0; j <= obj.length - 1; j++) {
                     var ip = obj[j][1];
-                    if (ipcol.indexOf(ip) == -1) {
-                        ipcol[ipcol.length] = ip;
-                        await cmd('whois', ip);
-                        cmdout = cmdout.toLowerCase();
-                        if ((cmdout.indexOf('akamai') == -1) && (cmdout.indexOf('google') == -1) && (cmdout.indexOf('github') == -1) && (cmdout.indexOf('facebook') == -1) && (cmdout.indexOf('dropbox') == -1) && (cmdout.indexOf('airenetworks') == -1) && (cmdout.indexOf('twitter') == -1) && (cmdout.indexOf('cloudflare') == -1) && (cmdout.indexOf('fastly') == -1) && (cmdout.indexOf('amazon') == -1) && (cmdout.indexOf('microsoft') == -1)) {
-                            //console.log(ip);
-                            appendToFile('ips.txt', ip + '\n');
+
+                    var ipar = [obj[j][1],obj[j][2]];
+
+                    for(var z=0;z<=ipar.length-1;z++){
+                        ip = ipar[z];
+                        if(ip.length > 63){continue;}
+                        if (ipcol.indexOf(ip) == -1) {
+                            ipcol[ipcol.length] = ip;
+                            await cmd('whois', ip);
+                            cmdout = cmdout.toLowerCase();
+                            if ((cmdout.indexOf('akamai') == -1) && (cmdout.indexOf('google') == -1) && (cmdout.indexOf('github') == -1) && (cmdout.indexOf('facebook') == -1) && (cmdout.indexOf('dropbox') == -1) && (cmdout.indexOf('airenetworks') == -1) && (cmdout.indexOf('twitter') == -1) && (cmdout.indexOf('cloudflare') == -1) && (cmdout.indexOf('fastly') == -1) && (cmdout.indexOf('amazon') == -1) && (cmdout.indexOf('microsoft') == -1)) {
+                                //console.log(ip);
+                                appendToFile('ips.txt', ip + '\n');
 
 
-                            var sql = "SELECT * FROM black WHERE (programid=" + res[0].id + ") and (ip='" + ip + "') limit 1";
-                            var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
-                            console.log(':spider-040' + ':::' + body2 + '\n**endlog**\n');
-                            var fnd2 = false;
-                            var res2 = [];
-                            try {
-                                res2 = JSON.parse(body2.trim());
-                                if (res2.length > 0) {
-                                    fnd2 = true;
-                                }
-                            } catch (ex) { fnd2 = false; }
-    
-                            if(fnd2 == false){
-    
-
-
-                                var vals = "'" + ip + "'," + res[0].id + ",";
-                                vals += "'na',";
-                                vals += "now(),now()";
-                                var sql = "INSERT INTO  black (ip, programid, status, cdate, udate) VALUES (" + vals + ")";// + res[0].id;
-                                console.log(sql);
+                                var sql = "SELECT * FROM black WHERE (programid=" + res[0].id + ") and (ip='" + ip + "') limit 1";
                                 var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
-                                console.log(':spider-04' + ':::' + body2 + '\n**endlog**\n');
-                            }    
+                                console.log(':spider-040' + ':::' + body2 + '\n**endlog**\n');
+                                var fnd2 = false;
+                                var res2 = [];
+                                try {
+                                    res2 = JSON.parse(body2.trim());
+                                    if (res2.length > 0) {
+                                        fnd2 = true;
+                                    }
+                                } catch (ex) { fnd2 = false; }
+        
+                                if(fnd2 == false){
+        
+
+
+                                    var vals = "'" + ip + "'," + res[0].id + ",";
+                                    vals += "'na',";
+                                    vals += "now(),now()";
+                                    var sql = "INSERT INTO  black (ip, programid, status, cdate, udate) VALUES (" + vals + ")";// + res[0].id;
+                                    console.log(sql);
+                                    var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
+                                    console.log(':spider-04' + ':::' + body2 + '\n**endlog**\n');
+                                }    
+                            }
+                            await delay(1000);
                         }
-                        await delay(1000);
                     }
                 }
 
                 console.log(ipcol);
+
+
+                //===============================
+
+
+                var url = global.spiderUrl + "scaneventresults";
+                var domain = res[0].domain;
+                var body = "id=" + id + "&eventType=IP_ADDRESS";
+                var bak = await spider_post(url,body);
+                console.log(bak);
+
+                var obj = JSON.parse(bak.trim());
+
+                for (var j = 0; j <= obj.length - 1; j++) {
+                    var ip = obj[j][1];
+
+                    var ipar = [obj[j][1]];
+
+                    for(var z=0;z<=ipar.length-1;z++){
+                        ip = ipar[z];
+                        if(ip.length > 63){continue;}
+                        if (ipcol.indexOf(ip) == -1) {
+                            ipcol[ipcol.length] = ip;
+                            await cmd('whois', ip);
+                            cmdout = cmdout.toLowerCase();
+                            if ((cmdout.indexOf('akamai') == -1) && (cmdout.indexOf('google') == -1) && (cmdout.indexOf('github') == -1) && (cmdout.indexOf('facebook') == -1) && (cmdout.indexOf('dropbox') == -1) && (cmdout.indexOf('airenetworks') == -1) && (cmdout.indexOf('twitter') == -1) && (cmdout.indexOf('cloudflare') == -1) && (cmdout.indexOf('fastly') == -1) && (cmdout.indexOf('amazon') == -1) && (cmdout.indexOf('microsoft') == -1)) {
+                                //console.log(ip);
+                                appendToFile('ips.txt', ip + '\n');
+
+
+                                var sql = "SELECT * FROM black WHERE (programid=" + res[0].id + ") and (ip='" + ip + "') limit 1";
+                                var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
+                                console.log(':spider-040' + ':::' + body2 + '\n**endlog**\n');
+                                var fnd2 = false;
+                                var res2 = [];
+                                try {
+                                    res2 = JSON.parse(body2.trim());
+                                    if (res2.length > 0) {
+                                        fnd2 = true;
+                                    }
+                                } catch (ex) { fnd2 = false; }
+        
+                                if(fnd2 == false){
+        
+
+
+                                    var vals = "'" + ip + "'," + res[0].id + ",";
+                                    vals += "'na',";
+                                    vals += "now(),now()";
+                                    var sql = "INSERT INTO  black (ip, programid, status, cdate, udate) VALUES (" + vals + ")";// + res[0].id;
+                                    console.log(sql);
+                                    var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
+                                    console.log(':spider-04' + ':::' + body2 + '\n**endlog**\n');
+                                }    
+                            }
+                            await delay(1000);
+                        }
+                    }
+                }
+
+                console.log(ipcol);
+
+
+                //===============================
+
 
                 var sql = "update program set status='spider-finished' WHERE id=" + res[0].id;
                 var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });

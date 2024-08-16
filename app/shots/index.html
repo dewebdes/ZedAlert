@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ZAlert | Programs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active" onclick="loadimg()">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked> NEXT
+        </label>
+        <label class="btn btn-secondary" onclick="loadfix()">
+            <input type="radio" name="options" id="option2" autocomplete="off"> BACK
+        </label>
+        <label class="btn btn-secondary" url="" id="openweb" onclick="window.open(jQuery(this).attr('url'))">
+            <input type="radio" name="options" id="option3" autocomplete="off"> OPEN
+        </label>
+        <label class="btn btn-secondary" url="" id="opeplat" onclick="window.open(jQuery(this).attr('url'))">
+            <input type="radio" name="options" id="option32" autocomplete="off"> PAGE
+        </label>
+        <label class="btn btn-secondary" id="spider" pid="" onclick="gospider()">
+            <input type="radio" name="options" id="option4" autocomplete="off"> SPIDER
+        </label>
+    </div>
+
+    <div class="container">
+        <h1 style="text-align: center;" id="tit"></h1>
+        <a id="plink" href="" target="_blank">
+            <img id="pimg" style="width: 100%;" src="" class="">
+        </a>
+    </div>
+    
+
+    <script>
+        var previd = [];
+        var previndx = 1;
+
+        function setup(res) {
+            jQuery('#pimg').attr('src', 'http://192.168.153.129/shots/program/' + res.id + '.jpg');
+            jQuery('#openweb').attr('url', 'http://' + res.domain);
+            jQuery('#opeplat').attr('url', res.page);
+            jQuery('#plink').attr('href', 'http://' + res.domain);
+            jQuery("#spider").attr('pid', res.id);
+            jQuery("#tit").html(res.name);
+        }
+
+        function loadimg() {
+            previndx = 1;
+            jQuery.ajax({
+                url: "http://192.168.153.129/captool.php?tbl=program&cmd=rand&param1=0", success: function (result) {
+                    console.log(result);
+                    var res = JSON.parse(result.trim())[0];
+                    previd[previd.length] = res.id;
+                    setup(res);
+                }
+            });
+        }
+
+        function loadfix() {
+            previndx++;
+            jQuery.ajax({
+                url: "http://192.168.153.129/captool.php?tbl=program&cmd=fix&param1=" + previd[previndx], success: function (result) {
+                    console.log(result);
+                    var res = JSON.parse(result.trim())[0];
+                    setup(res);
+                }
+            });
+        }
+
+        function gospider() {
+            jQuery.ajax({
+                url: "http://192.168.153.129/captool.php?tbl=program&cmd=spider&param1=" + jQuery("#spider").attr('pid'), success: function (result) {
+                    console.log(result);
+                    alert('ok');
+                    loadimg();
+                }
+            });
+        }
+
+        jQuery(document).ready(function () {
+            loadimg();
+        });
+    </script>
+
+</body>
+
+</html>

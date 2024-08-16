@@ -1,11 +1,11 @@
 {
   "programs": {
-    "hackerone-key": "...",
-    "hackerone-user": "...",
-    "intigriti-key": "..."
+    "hackerone-key": "8jOVeo+qCUrG2Z2r8eWIWcyRef/2Z8Ag9PaVDa4l+Mo=",
+    "hackerone-user": "eynikave",
+    "intigriti-key": "EBAE0C07E0DB4096319A7C1A3652D85D1F53A64BD13402F204FAB9DC5EAB8889-1"
   },"db": {
     "conn": "http://localhost/dbtool.php"
   },"recon":{
-    "spider-url": "http://spider-ip:5001/"
+    "spider-url": "http://135.181.116.137:5001/"
   }
 }
