@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 04, 2024 at 07:11 AM
--- Server version: 8.0.37-0ubuntu0.24.04.1
+-- Generation Time: Aug 17, 2024 at 11:07 PM
+-- Server version: 8.0.39-0ubuntu0.24.04.1
 -- PHP Version: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -105,7 +105,8 @@ CREATE TABLE `targets` (
   `status` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `flag` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `cdate` datetime NOT NULL,
-  `udate` datetime NOT NULL
+  `udate` datetime NOT NULL,
+  `periority` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --

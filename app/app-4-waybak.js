@@ -9,6 +9,9 @@ const process = require("process");
 var XLSX = require('xlsx');
 const { query } = require('express');
 
+const shell = require('shelljs');
+
+
 global.config = require('config');
 global.h1key = global.config.get('programs.hackerone-key');
 global.h1us = global.config.get('programs.hackerone-user');
@@ -42,7 +45,7 @@ const { promisify } = require('util');
 const exec = promisify(require('child_process').exec);
 const { execSync } = require('child_process');
 
-function runcshell(cmd){
+function runcshell(cmd) {
     const data = execSync(
         cmd,
         { encoding: 'utf8', maxBuffer: 500 * 1024 * 1024 }
@@ -104,13 +107,13 @@ async function hackerone() {
     for (var i = 0; i <= unique.length - 1; i++) {
         if (global.snippet.isnullval(unique[i].trim()) == false) {
             var infoar = unique[i].trim().split(' ');
-            var page = infoar[infoar.length-1];
+            var page = infoar[infoar.length - 1];
             var tempar = page.split('/');
-            var name = tempar[tempar.length-1];
+            var name = tempar[tempar.length - 1];
 
             var domain = infoar[0];
-            domain = global.snippet.replaceallstr(domain,'*.','');
-            if(domain.indexOf('.') == -1){
+            domain = global.snippet.replaceallstr(domain, '*.', '');
+            if (domain.indexOf('.') == -1) {
                 domain = '';
             }
 
@@ -118,22 +121,22 @@ async function hackerone() {
 
             var cfnd = programAr.find(o => o.name == name);
             if (cfnd == undefined) {
-                programAr[programAr.length] = { 'platform': 'hackerone', 'name': name, 'page': page, 'domain':domain };
-            }else{
-                if(domain.length < cfnd.domain){
+                programAr[programAr.length] = { 'platform': 'hackerone', 'name': name, 'page': page, 'domain': domain };
+            } else {
+                if (domain.length < cfnd.domain) {
                     cfnd.domain = domain;
                 }
             }
 
-            
+
         }
     }
     addlog(unique.length + ' programs found from hackerone.');
     //await writeToFile('log.txt', JSON.stringify(programAr));
 
-//console.log(programAr.length);
+    //console.log(programAr.length);
 
-//console.log(programAr);
+    //console.log(programAr);
 
 }
 
@@ -149,24 +152,24 @@ async function intigiriti() {
     for (var i = 0; i <= unique.length - 1; i++) {
         if (global.snippet.isnullval(unique[i].trim()) == false) {
 
-            var line = global.snippet.replaceallstr(unique[i].trim(),'[OOS] ','');
+            var line = global.snippet.replaceallstr(unique[i].trim(), '[OOS] ', '');
 
             var infoar = line.split(' ');
-            var page = infoar[infoar.length-1];
+            var page = infoar[infoar.length - 1];
             var tempar = page.split('/');
-            var name = tempar[tempar.length-2];
+            var name = tempar[tempar.length - 2];
 
             var domain = infoar[0];
-            domain = global.snippet.replaceallstr(domain,'*.','');
-            if(domain.indexOf('.') == -1){
+            domain = global.snippet.replaceallstr(domain, '*.', '');
+            if (domain.indexOf('.') == -1) {
                 domain = '';
             }
 
             var cfnd = programAr.find(o => o.name == name);
             if (cfnd == undefined) {
-                programAr[programAr.length] = { 'platform': 'Intigiriti', 'name': name, 'page': page, 'domain':domain };
-            }else{
-                if(domain.length < cfnd.domain){
+                programAr[programAr.length] = { 'platform': 'Intigiriti', 'name': name, 'page': page, 'domain': domain };
+            } else {
+                if (domain.length < cfnd.domain) {
                     cfnd.domain = domain;
                 }
             }
@@ -175,9 +178,9 @@ async function intigiriti() {
     addlog(unique.length + ' programs found from intigiriti.');
     //await writeToFile('log2.txt', JSON.stringify(programAr));
 
-console.log(programAr.length);
+    console.log(programAr.length);
 
-console.log(programAr);
+    console.log(programAr);
 
 }
 
@@ -227,44 +230,44 @@ async function run() {
 //run();
 
 function spider_post(durl, dbody) {
-	return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
         console.log("spider_post = " + durl);
-		request.post(durl, {
-			body: dbody,
-            headers: {'content-type' : 'application/x-www-form-urlencoded','Cache-Control':'max-age=0','Accept-Language':'en-US','Upgrade-Insecure-Requests':'1','Origin':'null','Connection':'keep-alive'},
-		}, function (error, res, body) {
-			resolve(body);
-			/*if (!error && res.statusCode === 200) {
-				resolve(body);
-			} else {
-				reject(error);
-			}*/
-		});
-	});
+        request.post(durl, {
+            body: dbody,
+            headers: { 'content-type': 'application/x-www-form-urlencoded', 'Cache-Control': 'max-age=0', 'Accept-Language': 'en-US', 'Upgrade-Insecure-Requests': '1', 'Origin': 'null', 'Connection': 'keep-alive' },
+        }, function (error, res, body) {
+            resolve(body);
+            /*if (!error && res.statusCode === 200) {
+                resolve(body);
+            } else {
+                reject(error);
+            }*/
+        });
+    });
 }
 
 
 var namecol = [];
 var ipcol = [];
 
-async function spider(){
+async function spider() {
     addlog('spider');
     var url = global.spiderUrl + "scanlist";
     var body = "";
-    var bak = await spider_post(url,body);
+    var bak = await spider_post(url, body);
 
-    console.log(typeof(bak));
+    console.log(typeof (bak));
     var obj = JSON.parse(bak.trim());
     console.log(obj);
     var isrun = false;
-    for(var i=0;i<=obj.length-1;i++){
+    for (var i = 0; i <= obj.length - 1; i++) {
         var id = obj[i][0];
         var domain = obj[i][1];
         var status = obj[i][6];
-        if(status == 'RUNING'){
+        if (status == 'RUNING') {
             isrun = true;
         }
-        if((status == 'FINISHED') || (status == 'ABORT-REQUESTED')){
+        if ((status == 'FINISHED') || (status == 'ABORT-REQUESTED')) {
             var sql = "SELECT * FROM program WHERE (domain='" + domain + "') and (status='spider-start') limit 1";
             var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
             console.log(':spider-01' + ':::' + body2 + '\n**endlog**\n');
@@ -277,7 +280,7 @@ async function spider(){
                 }
             } catch (ex) { fnd = false; }
 
-            if(fnd == true){
+            if (fnd == true) {
                 /*console.log('spider dl found ' + res[0].domain);
                 var url = global.spiderUrl + "scaneventresultexportmulti?filetype=excel&ids=" + id;
                 ////var domain = res[0].domain;
@@ -298,7 +301,7 @@ async function spider(){
                 var url = global.spiderUrl + "scaneventresults";
                 var domain = res[0].domain;
                 var body = "id=" + id + "&eventType=AFFILIATE_INTERNET_NAME";
-                var bak = await spider_post(url,body);
+                var bak = await spider_post(url, body);
                 console.log(bak);
 
                 var obj = JSON.parse(bak.trim());
@@ -306,11 +309,11 @@ async function spider(){
                 for (var j = 0; j <= obj.length - 1; j++) {
                     var sub = obj[j][2];
 
-                    var subar = [obj[j][1],obj[j][2]];
+                    var subar = [obj[j][1], obj[j][2]];
 
-                    for(var z=0;z<=subar.length-1;z++){
+                    for (var z = 0; z <= subar.length - 1; z++) {
                         sub = subar[z];
-                        if(sub.length > 63){continue;}
+                        if (sub.length > 63) { continue; }
                         if (namecol.indexOf(sub) == -1) {
                             namecol[namecol.length] = sub;
                             await appendToFile('sub.txt', sub + '\n');
@@ -327,7 +330,7 @@ async function spider(){
                                 }
                             } catch (ex) { fnd2 = false; }
 
-                            if(fnd2 == false){
+                            if (fnd2 == false) {
 
                                 var vals = res[0].id + ",";
                                 vals += "'" + sub + "',";
@@ -348,7 +351,7 @@ async function spider(){
                 var url = global.spiderUrl + "scaneventresults";
                 var domain = res[0].domain;
                 var body = "id=" + id + "&eventType=INTERNET_NAME";
-                var bak = await spider_post(url,body);
+                var bak = await spider_post(url, body);
                 console.log(bak);
 
                 var obj = JSON.parse(bak.trim());
@@ -356,11 +359,11 @@ async function spider(){
                 for (var j = 0; j <= obj.length - 1; j++) {
                     var sub = obj[j][2];
 
-                    var subar = [obj[j][1],obj[j][2]];
+                    var subar = [obj[j][1], obj[j][2]];
 
-                    for(var z=0;z<=subar.length-1;z++){
+                    for (var z = 0; z <= subar.length - 1; z++) {
                         sub = subar[z];
-                        if(sub.length > 63){continue;}
+                        if (sub.length > 63) { continue; }
                         if (namecol.indexOf(sub) == -1) {
                             namecol[namecol.length] = sub;
                             await appendToFile('sub.txt', sub + '\n');
@@ -377,7 +380,7 @@ async function spider(){
                                 }
                             } catch (ex) { fnd2 = false; }
 
-                            if(fnd2 == false){
+                            if (fnd2 == false) {
 
                                 var vals = res[0].id + ",";
                                 vals += "'" + sub + "',";
@@ -398,7 +401,7 @@ async function spider(){
                 var url = global.spiderUrl + "scaneventresults";
                 var domain = res[0].domain;
                 var body = "id=" + id + "&eventType=AFFILIATE_IPADDR";
-                var bak = await spider_post(url,body);
+                var bak = await spider_post(url, body);
                 console.log(bak);
 
                 var obj = JSON.parse(bak.trim());
@@ -406,11 +409,11 @@ async function spider(){
                 for (var j = 0; j <= obj.length - 1; j++) {
                     var ip = obj[j][1];
 
-                    var ipar = [obj[j][1],obj[j][2]];
+                    var ipar = [obj[j][1], obj[j][2]];
 
-                    for(var z=0;z<=ipar.length-1;z++){
+                    for (var z = 0; z <= ipar.length - 1; z++) {
                         ip = ipar[z];
-                        if(ip.length > 63){continue;}
+                        if (ip.length > 63) { continue; }
                         if (ipcol.indexOf(ip) == -1) {
                             ipcol[ipcol.length] = ip;
                             await cmd('whois', ip);
@@ -431,9 +434,9 @@ async function spider(){
                                         fnd2 = true;
                                     }
                                 } catch (ex) { fnd2 = false; }
-        
-                                if(fnd2 == false){
-        
+
+                                if (fnd2 == false) {
+
 
 
                                     var vals = "'" + ip + "'," + res[0].id + ",";
@@ -443,7 +446,7 @@ async function spider(){
                                     console.log(sql);
                                     var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
                                     console.log(':spider-04' + ':::' + body2 + '\n**endlog**\n');
-                                }    
+                                }
                             }
                             await delay(1000);
                         }
@@ -459,7 +462,7 @@ async function spider(){
                 var url = global.spiderUrl + "scaneventresults";
                 var domain = res[0].domain;
                 var body = "id=" + id + "&eventType=IP_ADDRESS";
-                var bak = await spider_post(url,body);
+                var bak = await spider_post(url, body);
                 console.log(bak);
 
                 var obj = JSON.parse(bak.trim());
@@ -469,9 +472,9 @@ async function spider(){
 
                     var ipar = [obj[j][1]];
 
-                    for(var z=0;z<=ipar.length-1;z++){
+                    for (var z = 0; z <= ipar.length - 1; z++) {
                         ip = ipar[z];
-                        if(ip.length > 63){continue;}
+                        if (ip.length > 63) { continue; }
                         if (ipcol.indexOf(ip) == -1) {
                             ipcol[ipcol.length] = ip;
                             await cmd('whois', ip);
@@ -492,9 +495,9 @@ async function spider(){
                                         fnd2 = true;
                                     }
                                 } catch (ex) { fnd2 = false; }
-        
-                                if(fnd2 == false){
-        
+
+                                if (fnd2 == false) {
+
 
 
                                     var vals = "'" + ip + "'," + res[0].id + ",";
@@ -504,7 +507,7 @@ async function spider(){
                                     console.log(sql);
                                     var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
                                     console.log(':spider-04' + ':::' + body2 + '\n**endlog**\n');
-                                }    
+                                }
                             }
                             await delay(1000);
                         }
@@ -522,21 +525,21 @@ async function spider(){
                 console.log(':spider-02' + ':::' + body2 + '\n**endlog**\n');
 
                 /* delete from spider server */
-                
+
                 //var url = global.spiderUrl + "scandelete?id=" + id;
                 //var body2 = await global.outgoing.doRequest(url, {});
                 //console.log(body2);
 
-            }else{
+            } else {
                 console.log('spider dl not found...');
             }
         }
 
     }
-    
-//return;
 
-    if(isrun==false){
+    //return;
+
+    if (isrun == false) {
         var sql = "SELECT * FROM program WHERE (status='spider-ready') order by periority desc limit 1";
         var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
         console.log(indx + ':' + ':spider-1' + ':::' + body2 + '\n**endlog**\n');
@@ -549,17 +552,17 @@ async function spider(){
             }
         } catch (ex) { fnd = false; }
 
-        if(fnd == true){
+        if (fnd == true) {
             console.log('spider start found ' + res[0].domain);
             var url = global.spiderUrl + "startscan";
             var domain = res[0].domain;
             var body = "scanname=" + domain + "&scantarget=" + domain + "&usecase=all&modulelist=&typelist=";
-            var bak = await spider_post(url,body);
+            var bak = await spider_post(url, body);
             console.log(bak);
             var sql = "update program set status='spider-start' WHERE id=" + res[0].id;
             var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
             console.log(indx + ':' + ':spider-2' + ':::' + body2 + '\n**endlog**\n');
-        }else{
+        } else {
             console.log('spider start not found...');
         }
     }
@@ -584,7 +587,7 @@ async function target_check_1() {
         }
     } catch (ex) { fnd = false; }
 
-    if(fnd == true){
+    if (fnd == true) {
 
 
         var payl = res[0].addr;
@@ -642,15 +645,15 @@ async function target_check_1() {
                     process.exit(1);
                 }*/
 
-                    var sql = "update targets set status='ok',udate=now() WHERE (id=" + id + ")";
-                    var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
-                    console.log(':targetcheck-02' + ':::' + body2 + '\n**endlog**\n');
-                    
+                var sql = "update targets set status='ok',udate=now() WHERE (id=" + id + ")";
+                var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
+                console.log(':targetcheck-02' + ':::' + body2 + '\n**endlog**\n');
+
 
                 await delay(12000);
 
 
-              //  cupage++;
+                //  cupage++;
                 //await writeToFile('index.txt', cupage.toString());
 
 
@@ -662,7 +665,7 @@ async function target_check_1() {
                 var sql = "update targets set status='notok',udate=now() WHERE (id=" + id + ")";
                 var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
                 console.log(':targetcheck-02' + ':::' + body2 + '\n**endlog**\n');
-                
+
 
                 console.log('server error...\n' + ex.message);
                 await delay(10000);
@@ -671,15 +674,15 @@ async function target_check_1() {
         } else {
             //cupage++;
             //await writeToFile('index.txt', cupage.toString());
-            
-            var sql = "update targets set status='notok',udate=now() WHERE (id=" + id + ")";
-                var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
-                console.log(':targetcheck-02' + ':::' + body2 + '\n**endlog**\n');
-                
 
-                //console.log('server error...\n' + ex.message);
+            var sql = "update targets set status='notok',udate=now() WHERE (id=" + id + ")";
+            var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
+            console.log(':targetcheck-02' + ':::' + body2 + '\n**endlog**\n');
+
+
+            //console.log('server error...\n' + ex.message);
             //    await delay(10000);
-              //  await target_check_1();
+            //  await target_check_1();
 
             await delay(12000);
             await target_check_1();
@@ -711,19 +714,54 @@ async function waybak() {
         }
     } catch (ex) { fnd = false; }
 
-    if(fnd == true){
+    if (fnd == true) {
 
         //await cmd('echo', '"' + res[0].addr + '"', '|', './waybackurls');
         //const nameOutput = await exec('echo "' + res[0].addr + '" | ./waybackurls',{maxBuffer: 1024 * 5000});
-        //const nameOutput = await runcshell('echo "' + res[0].addr + '" | ./waybackurls');
 
-        var url = "https://web.archive.org/cdx/search/cdx?url=*." + res[0].addr + "/*&fl=original&collapse=urlkey&limit=1000&filter=!statuscode%3A%5B45%5D..";
-        var nameOutput = await global.outgoing.doRequest(url, null);
-    
+        //const nameOutput = await runcshell('echo "' + res[0].addr + '" | ./waybackurls | tee ' + res[0].addr + '-urls.txt');
+        var nameOutput = '';
+        let process = shell.exec('echo "' + res[0].addr + '" | ./waybackurls | tee ' + res[0].addr + '-urls.txt', { async: true });
+        var haveout = false;
+        console.log('awit before');
+        await delay(60000);
+        console.log('awit after');
+        for (var k = 0; k <= 1000; k++) {
+            console.log('while...' + k);
+            //fs.readFileSync()
+            var ret = await readFile(res[0].addr + '-urls.txt');
+            if (global.snippet.isnullval(ret) == false) {
+                console.log('ok');
+                nameOutput = ret;
+                k = 2000;
+                process.kill('SIGINT');
+            } else {
+                console.log('err');
+                k--;
+                await delay(100);
+            }
+            /*fs.readFile(res[0].addr + '-urls.txt', 'utf8', async (err, data) => {
+                if (err) {
+                    console.log('while err');
+                    haveout = false;
+                    await delay(100);
+                } else {
+                    console.log('while ok...');
+                    haveout = true;
+                    nameOutput = data;
+                    process.kill('SIGINT');
+                }
+
+            });*/
+        }
+
+        //var url = "https://web.archive.org/cdx/search/cdx?url=*." + res[0].addr + "/*&fl=original&collapse=urlkey&limit=1000&filter=!statuscode%3A%5B45%5D..";
+        //var nameOutput = await global.outgoing.doRequest(url, null);
+
 
         //console.log('out: ' + (nameOutput));
         //return;
-        
+
         var lst = nameOutput.split(/\r?\n/);
         var unique = lst.filter(global.snippet.onlyUnique);
         console.log('waybak result: ' + lst.length);
@@ -735,7 +773,8 @@ async function waybak() {
             if (global.snippet.isnullval(unique[i].trim()) == false) {
 
 
-                var sql = "SELECT * FROM endpoints WHERE (addr='" + unique[i].trim() + "') limit 1";
+                var addr= Buffer.from(unique[i].trim()).toString('base64');
+                var sql = "SELECT * FROM endpoints WHERE (addr='" + addr + "') limit 1";
                 var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
                 console.log(':waybak-01' + ':::' + body2 + '\n**endlog**\n');
                 var fnd = false;
@@ -747,9 +786,9 @@ async function waybak() {
                     }
                 } catch (ex) { fnd = false; }
 
-                if(fnd==false){
+                if (fnd == false) {
                     var vals = res[0].programid + "," + res[0].id + ",";
-                    vals += "'" + unique[i].trim() + "',";
+                    vals += "'" + addr + "',";
                     vals += "'" + 'na' + "',";
                     vals += "now(),now()";
                     var sql = "INSERT INTO endpoints (programid, targetid, addr, status, cdate, udate) VALUES (" + vals + ")";// + res[0].id;
@@ -789,7 +828,7 @@ async function endpoint_check_1() {
         }
     } catch (ex) { fnd = false; }
 
-    if(fnd == true){
+    if (fnd == true) {
 
 
         var payl = res[0].addr;
@@ -848,15 +887,15 @@ async function endpoint_check_1() {
                     process.exit(1);
                 }*/
 
-                    var sql = "update endpoints set status='ok',udate=now() WHERE (id=" + id + ")";
-                    var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
-                    console.log(':endpointcheck-02' + ':::' + body2 + '\n**endlog**\n');
-                    
+                var sql = "update endpoints set status='ok',udate=now() WHERE (id=" + id + ")";
+                var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
+                console.log(':endpointcheck-02' + ':::' + body2 + '\n**endlog**\n');
+
 
                 await delay(12000);
 
 
-              //  cupage++;
+                //  cupage++;
                 //await writeToFile('index.txt', cupage.toString());
 
 
@@ -868,7 +907,7 @@ async function endpoint_check_1() {
                 var sql = "update endpoints set status='notok',udate=now() WHERE (id=" + id + ")";
                 var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
                 console.log(':endpointcheck-02' + ':::' + body2 + '\n**endlog**\n');
-                
+
 
                 console.log('server error...\n' + ex.message);
                 await delay(10000);
@@ -877,15 +916,15 @@ async function endpoint_check_1() {
         } else {
             //cupage++;
             //await writeToFile('index.txt', cupage.toString());
-            
-                var sql = "update endpoints set status='notok',udate=now() WHERE (id=" + id + ")";
-                var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
-                console.log(':endpointcheck-02' + ':::' + body2 + '\n**endlog**\n');
-                
 
-                //console.log('server error...\n' + ex.message);
-                await delay(12000);
-                await endpoint_check_1();
+            var sql = "update endpoints set status='notok',udate=now() WHERE (id=" + id + ")";
+            var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
+            console.log(':endpointcheck-02' + ':::' + body2 + '\n**endlog**\n');
+
+
+            //console.log('server error...\n' + ex.message);
+            await delay(12000);
+            await endpoint_check_1();
 
             //await delay(12000);
             //await target_check_1();
@@ -910,7 +949,7 @@ async function endpoint_params() {
         }
     } catch (ex) { fnd = false; }
 
-    if(fnd == true){
+    if (fnd == true) {
 
         //await cmd('echo', '"' + res[0].addr + '"', '|', './waybackurls');
         //const nameOutput = await exec('echo "' + res[0].addr + '" | ./waybackurls',{maxBuffer: 1024 * 5000});
@@ -919,7 +958,7 @@ async function endpoint_params() {
         nameOutput = await readFile('parameters.txt');
         //console.log('out: ' + (nameOutput));
         //return;
-        
+
         var lst = nameOutput.split(/\r?\n/);
         var unique = lst.filter(global.snippet.onlyUnique);
         console.log('params result: ' + lst.length);
@@ -943,19 +982,19 @@ async function endpoint_params() {
                     }
                 } catch (ex) { fnd = false; }
 
-                if(fnd==false){
+                if (fnd == false) {
                     var vals = res[0].programid + "," + res[0].targetid + "," + res[0].id + ",";
                     vals += "now(),now(),";
                     vals += "'" + 'fall' + "',";
                     vals += "'" + unique[i].trim() + "'";
-                    
-                    
+
+
                     var sql = "INSERT INTO params (programid, targetid, endpointid, cdate, udate, status, name) VALUES (" + vals + ")";// + res[0].id;
                     var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
                     console.log(':params-03' + ':::' + body2 + '\n**endlog**\n');
 
 
-                    
+
 
 
                 }
@@ -1032,8 +1071,8 @@ async function endpoint_params() {
     //Promise.allSettled([run(), spider(), target_check_1(), waybak(), endpoint_check_1(), endpoint_params()]);
     //Promise.allSettled([run(), spider(), target_check_1()]);
     Promise.allSettled([waybak()]);
-    
-    
+
+
     //run();
     //spider();
     //target_check_1();

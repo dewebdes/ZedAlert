@@ -903,7 +903,12 @@ async function endpoint_params() {
 
         //await cmd('echo', '"' + res[0].addr + '"', '|', './waybackurls');
         //const nameOutput = await exec('echo "' + res[0].addr + '" | ./waybackurls',{maxBuffer: 1024 * 5000});
-        var nameOutput = await runcshell('./fallparams -u ' + res[0].addr + ' -crawl');
+
+        var payl = Buffer.from(res[0].addr, 'base64').toString('ascii');
+
+        var shellcmd = './fallparams -u ' + payl;// + ' | tee fall-' + res[0].id + '.txt';
+        console.log(shellcmd);
+        var nameOutput = await runcshell(shellcmd);
 
         nameOutput = await readFile('parameters.txt');
         //console.log('out: ' + (nameOutput));
@@ -953,8 +958,10 @@ async function endpoint_params() {
 
 
         console.log('X8 Start...');
-        var nameOutput2 = await runcshell('./x8 -u "' + res[0].addr + '" -w parameters.txt -o reflect.txt -d 12000');
-        nameOutput2 = await readFile('reflect.txt');
+        var shellcmd = './x8 -u "' + payl + '" -w parameters.txt -o x8-' + res[0].id + '.txt -d 12000';
+        console.log(shellcmd);
+        var nameOutput2 = await runcshell(shellcmd);
+        nameOutput2 = await readFile('x8-' + res[0].id + '.txt');
         var pasr = nameOutput2.split('%')[1].split(',');
         for (var j = 0; j <= pasr.length - 2; j++) {
             if (global.snippet.isnullval(pasr[j].trim()) == false) {

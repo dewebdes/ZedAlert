@@ -68,7 +68,7 @@
         function loadfix() {
             previndx++;
             jQuery.ajax({
-                url: "http://192.168.153.129/captool.php?tbl=program&cmd=fix&param1=" + previd[previndx], success: function (result) {
+                url: "http://192.168.153.129/captool.php?tbl=program&cmd=fix&param1=" + previd[previd.length - previndx], success: function (result) {
                     console.log(result);
                     var res = JSON.parse(result.trim())[0];
                     setup(res);

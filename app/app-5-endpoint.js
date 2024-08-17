@@ -691,6 +691,9 @@ async function target_check_1() {
 
 
 async function waybak() {
+
+//http://web.archive.org/cdx/search/cdx?url=*.priceline.com/*&output=json&collapse=urlkey
+
     addlog('waybak');
     var sql = "SELECT * FROM targets WHERE (status='ok') limit 1";
     var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
@@ -781,7 +784,7 @@ async function endpoint_check_1() {
     if(fnd == true){
 
 
-        var payl = res[0].addr;
+        var payl = Buffer.from(res[0].addr, 'base64').toString('ascii');
         var id = res[0].id;
         console.log(payl);
 

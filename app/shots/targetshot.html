@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>ZAlert | endpoints</title>
+    <title>ZAlert | targetshots</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -44,8 +44,11 @@
 
         function setup(res) {
             console.log(res);
-            var addr = atob(res.addr);
-            jQuery('#pimg').attr('src', 'http://192.168.153.129/shots/endpoint/' + res.id + '.jpg');
+            var addr = (res.addr);
+            if((addr.indexOf('http://')==-1) && (addr.indexOf('https://')==-1)){
+                addr = 'http://' + addr;
+            }
+            jQuery('#pimg').attr('src', 'http://192.168.153.129/shots/target/' + res.id + '.jpg');
             jQuery('#openweb').attr('url', addr);
             jQuery('#opeplat').attr('url', res.page);
             jQuery('#plink').attr('href', addr);
@@ -56,7 +59,7 @@
         function loadimg() {
             previndx = 1;
             jQuery.ajax({
-                url: "http://192.168.153.129/captool.php?tbl=endpoint&cmd=rand&param1=0", success: function (result) {
+                url: "http://192.168.153.129/captool.php?tbl=targetshot&cmd=rand&param1=0", success: function (result) {
                     console.log(result);
                     var res = JSON.parse(result.trim())[0];
                     previd[previd.length] = res.id;
@@ -68,7 +71,7 @@
         function loadfix() {
             previndx++;
             jQuery.ajax({
-                url: "http://192.168.153.129/captool.php?tbl=endpoint&cmd=fix&param1=" + previd[previd.length - previndx], success: function (result) {
+                url: "http://192.168.153.129/captool.php?tbl=targetshot&cmd=fix&param1=" + previd[previd.length - previndx], success: function (result) {
                     console.log(result);
                     var res = JSON.parse(result.trim())[0];
                     setup(res);
@@ -78,7 +81,7 @@
 
         function gospider() {
             jQuery.ajax({
-                url: "http://192.168.153.129/captool.php?tbl=endpoint&cmd=spider&param1=" + jQuery("#spider").attr('pid'), success: function (result) {
+                url: "http://192.168.153.129/captool.php?tbl=targetshot&cmd=spider&param1=" + jQuery("#spider").attr('pid'), success: function (result) {
                     console.log(result);
                     alert('ok');
                     loadimg();
