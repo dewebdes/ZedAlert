@@ -691,6 +691,13 @@ async function target_check_1() {
 
 
 async function waybak() {
+
+    //https://web.archive.org/cdx/search/cdx?url=*.priceline.com/*&fl=original&collapse=urlkey&limit=100000
+    //console.log(body2);
+    //return;
+
+
+
     addlog('waybak');
     var sql = "SELECT * FROM targets WHERE (status='ok') limit 1";
     var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
@@ -708,7 +715,11 @@ async function waybak() {
 
         //await cmd('echo', '"' + res[0].addr + '"', '|', './waybackurls');
         //const nameOutput = await exec('echo "' + res[0].addr + '" | ./waybackurls',{maxBuffer: 1024 * 5000});
-        const nameOutput = await runcshell('echo "' + res[0].addr + '" | ./waybackurls');
+        //const nameOutput = await runcshell('echo "' + res[0].addr + '" | ./waybackurls');
+
+        var url = "https://web.archive.org/cdx/search/cdx?url=*." + res[0].addr + "/*&fl=original&collapse=urlkey&limit=1000&filter=!statuscode%3A%5B45%5D..";
+        var nameOutput = await global.outgoing.doRequest(url, null);
+    
 
         //console.log('out: ' + (nameOutput));
         //return;

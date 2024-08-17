@@ -15,7 +15,7 @@ if($ip != '127.0.0.1'){
 
 $servername = "localhost";
 $username = "root";
-$password = "...";
+$password = "inters\$koth0y3E";
 $dbname = "zalert";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -69,6 +69,19 @@ switch($tbl){
                 break;
         }           
         break;
+    case 'endpoint':
+            switch($cmd){
+                case 'rand':
+                        $sql = "SELECT tbl2.*,(SELECT page from program tbl1 WHERE tbl1.id=tbl2.programid) as page,(SELECT name from program tbl1 WHERE tbl1.id=tbl2.programid) as name FROM endpoints tbl2 WHERE (tbl2.status='ok') ORDER BY periority desc,RAND() limit 1";
+                        select($sql);
+                    break;
+                case 'fix':
+                        $sql = "SELECT tbl2.*,(SELECT page from program tbl1 WHERE tbl1.id=tbl2.programid) as page,(SELECT name from program tbl1 WHERE tbl1.id=tbl2.programid) as name FROM endpoints tbl2 WHERE tbl2.id=" . $param1;
+                        select($sql);
+                    break;
+                
+            }           
+            break;
 }
 
 
