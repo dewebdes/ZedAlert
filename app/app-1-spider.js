@@ -261,7 +261,7 @@ async function spider(){
         var id = obj[i][0];
         var domain = obj[i][1];
         var status = obj[i][6];
-        if(status == 'RUNING'){
+        if(status == 'RUNNING'){
             isrun = true;
         }
         if((status == 'FINISHED') || (status == 'ABORT-REQUESTED')){
