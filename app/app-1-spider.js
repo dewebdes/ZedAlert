@@ -321,6 +321,10 @@ async function spider() {
         if (status == 'CREATED') {
             isrun = true;
         }
+        if (status == 'STARTING') {
+            isrun = true;
+        }
+        
         if ((status == 'FINISHED') || (status == 'ABORT-REQUESTED')) {
             var sql = "SELECT * FROM program WHERE (domain='" + domain + "') and (status='spider-start') limit 1";
             var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
