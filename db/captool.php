@@ -2,12 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('memory_limit', '-1');
+set_time_limit(0);
 
 
 $ip = $_SERVER['REMOTE_ADDR'];
 
-if($ip != '127.0.0.1'){
-    //die(':(');
+if($ip != '185.217.143.152'){
+   // die(':('. $ip);
 }else {
 	//...
 }
@@ -79,7 +80,21 @@ switch($tbl){
                         $sql = "SELECT tbl2.*,(SELECT page from program tbl1 WHERE tbl1.id=tbl2.programid) as page,(SELECT name from program tbl1 WHERE tbl1.id=tbl2.programid) as name FROM endpoints tbl2 WHERE tbl2.id=" . $param1;
                         select($sql);
                     break;
-                
+                case 'waybak':
+                        $sql = "SELECT * FROM endpoints WHERE FROM_BASE64(addr) LIKE '%" . $param1 . "%' order by FROM_BASE64(addr) desc";
+                        //die($sql);
+                        $result = $conn->query($sql);
+                        $emparray = '';
+                        while($row = mysqli_fetch_assoc($result))
+                        {
+                            $emparray = $emparray . base64_decode($row['addr']) . PHP_EOL;
+                        }
+                        $filename="waybak.txt";
+                        header("Content-type: application/octet-stream");
+                        header("Content-disposition: attachment;filename=$filename");
+                        echo $emparray;
+
+                    break;
             }           
             break;
     case 'targetshot':

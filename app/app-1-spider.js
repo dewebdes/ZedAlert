@@ -294,6 +294,13 @@ function isIPv6(value) {
     return true;
 }
 
+function whitelist(cmdout){
+    if ((cmdout.indexOf('cloudfront') == -1) && (cmdout.indexOf('mxrecord') == -1) && (cmdout.indexOf('sendgrid') == -1) && (cmdout.indexOf('outlook') == -1) && (cmdout.indexOf('azure') == -1) && (cmdout.indexOf('akamai') == -1) && (cmdout.indexOf('google') == -1) && (cmdout.indexOf('github') == -1) && (cmdout.indexOf('facebook') == -1) && (cmdout.indexOf('dropbox') == -1) && (cmdout.indexOf('airenetworks') == -1) && (cmdout.indexOf('twitter') == -1) && (cmdout.indexOf('cloudflare') == -1) && (cmdout.indexOf('fastly') == -1) && (cmdout.indexOf('amazon') == -1) && (cmdout.indexOf('microsoft') == -1)) {
+        return false;
+    }
+    return true;
+}
+
 async function spider() {
     addlog('spider');
     var url = global.spiderUrl + "scanlist";
@@ -309,6 +316,9 @@ async function spider() {
         var domain = obj[i][1];
         var status = obj[i][6];
         if (status == 'RUNNING') {
+            isrun = true;
+        }
+        if (status == 'CREATED') {
             isrun = true;
         }
         if ((status == 'FINISHED') || (status == 'ABORT-REQUESTED')) {
@@ -366,6 +376,11 @@ async function spider() {
                             }
                             if ((sub.indexOf('akam.net') > -1) || (sub.indexOf('edgekey.net') > -1) || (sub.indexOf('akamai') > -1) || (sub.indexOf('google') > -1) || (sub.indexOf('github') > -1) || (sub.indexOf('facebook') > -1) || (sub.indexOf('dropbox') > -1) || (sub.indexOf('airenetworks') > -1) || (sub.indexOf('twitter') > -1) || (sub.indexOf('cloudflare') > -1) || (sub.indexOf('fastly') > -1) || (sub.indexOf('amazon') > -1) || (sub.indexOf('microsoft') > -1)) { continue; }
 
+                            var cmdout=sub;
+                            if(whitelist(cmdout) == true){continue;}
+                            if ((cmdout.indexOf('mxrecord') == -1) && (cmdout.indexOf('sendgrid') == -1) && (cmdout.indexOf('outlook') == -1) && (cmdout.indexOf('azure') == -1) && (cmdout.indexOf('akamai') == -1) && (cmdout.indexOf('google') == -1) && (cmdout.indexOf('github') == -1) && (cmdout.indexOf('facebook') == -1) && (cmdout.indexOf('dropbox') == -1) && (cmdout.indexOf('airenetworks') == -1) && (cmdout.indexOf('twitter') == -1) && (cmdout.indexOf('cloudflare') == -1) && (cmdout.indexOf('fastly') == -1) && (cmdout.indexOf('amazon') == -1) && (cmdout.indexOf('microsoft') == -1)) {
+
+
                             namecol[namecol.length] = sub;
                             await appendToFile('sub.txt', sub + '\n');
 
@@ -392,6 +407,7 @@ async function spider() {
                                 console.log(':spider-03' + ':::' + body2 + '\n**endlog**\n');
                             }
                         }
+                    }
                     }
                 }
 
@@ -422,8 +438,9 @@ async function spider() {
                                 continue;
                             }
                             if ((sub.indexOf('akam.net') > -1) || (sub.indexOf('edgekey.net') > -1) || (sub.indexOf('akamai') > -1) || (sub.indexOf('google') > -1) || (sub.indexOf('github') > -1) || (sub.indexOf('facebook') > -1) || (sub.indexOf('dropbox') > -1) || (sub.indexOf('airenetworks') > -1) || (sub.indexOf('twitter') > -1) || (sub.indexOf('cloudflare') > -1) || (sub.indexOf('fastly') > -1) || (sub.indexOf('amazon') > -1) || (sub.indexOf('microsoft') > -1)) { continue; }
-
-
+var cmdout=sub;
+if(whitelist(cmdout) == true){continue;}
+                            if ((cmdout.indexOf('mxrecord') == -1) && (cmdout.indexOf('sendgrid') == -1) && (cmdout.indexOf('outlook') == -1) && (cmdout.indexOf('azure') == -1) && (cmdout.indexOf('akamai') == -1) && (cmdout.indexOf('google') == -1) && (cmdout.indexOf('github') == -1) && (cmdout.indexOf('facebook') == -1) && (cmdout.indexOf('dropbox') == -1) && (cmdout.indexOf('airenetworks') == -1) && (cmdout.indexOf('twitter') == -1) && (cmdout.indexOf('cloudflare') == -1) && (cmdout.indexOf('fastly') == -1) && (cmdout.indexOf('amazon') == -1) && (cmdout.indexOf('microsoft') == -1)) {
 
 
                             namecol[namecol.length] = sub;
@@ -458,6 +475,7 @@ async function spider() {
                             }
                         }
                     }
+                    }
                 }
 
                 console.log(namecol);
@@ -484,7 +502,8 @@ async function spider() {
                             ipcol[ipcol.length] = ip;
                             await cmd('whois', ip);
                             cmdout = cmdout.toLowerCase();
-                            if ((cmdout.indexOf('akamai') == -1) && (cmdout.indexOf('google') == -1) && (cmdout.indexOf('github') == -1) && (cmdout.indexOf('facebook') == -1) && (cmdout.indexOf('dropbox') == -1) && (cmdout.indexOf('airenetworks') == -1) && (cmdout.indexOf('twitter') == -1) && (cmdout.indexOf('cloudflare') == -1) && (cmdout.indexOf('fastly') == -1) && (cmdout.indexOf('amazon') == -1) && (cmdout.indexOf('microsoft') == -1)) {
+                            if(whitelist(cmdout) == true){continue;}
+                            if ((cmdout.indexOf('mxrecord') == -1) && (cmdout.indexOf('sendgrid') == -1) && (cmdout.indexOf('outlook') == -1) && (cmdout.indexOf('azure') == -1) && (cmdout.indexOf('akamai') == -1) && (cmdout.indexOf('google') == -1) && (cmdout.indexOf('github') == -1) && (cmdout.indexOf('facebook') == -1) && (cmdout.indexOf('dropbox') == -1) && (cmdout.indexOf('airenetworks') == -1) && (cmdout.indexOf('twitter') == -1) && (cmdout.indexOf('cloudflare') == -1) && (cmdout.indexOf('fastly') == -1) && (cmdout.indexOf('amazon') == -1) && (cmdout.indexOf('microsoft') == -1)) {
                                 //console.log(ip);
                                 appendToFile('ips.txt', ip + '\n');
 
@@ -545,7 +564,8 @@ async function spider() {
                             ipcol[ipcol.length] = ip;
                             await cmd('whois', ip);
                             cmdout = cmdout.toLowerCase();
-                            if ((cmdout.indexOf('akamai') == -1) && (cmdout.indexOf('google') == -1) && (cmdout.indexOf('github') == -1) && (cmdout.indexOf('facebook') == -1) && (cmdout.indexOf('dropbox') == -1) && (cmdout.indexOf('airenetworks') == -1) && (cmdout.indexOf('twitter') == -1) && (cmdout.indexOf('cloudflare') == -1) && (cmdout.indexOf('fastly') == -1) && (cmdout.indexOf('amazon') == -1) && (cmdout.indexOf('microsoft') == -1)) {
+                            if(whitelist(cmdout) == true){continue;}
+                            if ((cmdout.indexOf('mxrecord') == -1) && (cmdout.indexOf('sendgrid') == -1) && (cmdout.indexOf('outlook') == -1) && (cmdout.indexOf('azure') == -1) && (cmdout.indexOf('akamai') == -1) && (cmdout.indexOf('google') == -1) && (cmdout.indexOf('github') == -1) && (cmdout.indexOf('facebook') == -1) && (cmdout.indexOf('dropbox') == -1) && (cmdout.indexOf('airenetworks') == -1) && (cmdout.indexOf('twitter') == -1) && (cmdout.indexOf('cloudflare') == -1) && (cmdout.indexOf('fastly') == -1) && (cmdout.indexOf('amazon') == -1) && (cmdout.indexOf('microsoft') == -1)) {
                                 //console.log(ip);
                                 appendToFile('ips.txt', ip + '\n');
 

@@ -9,3 +9,19 @@ cat domains.txt | waybackurls > urls
 echo "https://fleet.toyota.com/" | ./waybackurls > bakurls001.txt
 echo "http://35.190.70.41/" | ./waybackurls > bak-001.txt
 
+echo "yelp.com" | ./waybackurls | ./unfurl keys | tee yelp-unf.txt
+sort yelp-unf.txt | uniq -u | tee yelp-unf-unq.txt
+cat urls.txt | uro
+
+
+echo "yelp.com" | ./waybackurls | uro | tee yelp-uro.txt
+
+uro > python3 setup.py install
+cat urls.txt | uro
+
+./fallparams -u https://3bon.booth.pm/items/4519345
+cat booth.pm-urls.txt | ./unfurl keys | sort | uniq -u > wayparams.txt
+#append wayparams to parameters.txt
+#append 27 top xss to parameters.txt
+cat parameters.txt | sort | uniq -u > params.txt
+./x8 -u "https://3bon.booth.pm/items/4519345" -w params.txt -o x8.txt -d 12000 -x "http://127.0.0.1:8080"
