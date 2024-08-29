@@ -1,0 +1,15 @@
+git clone https://github.com/emadshanab/Nuclei-Templates-Collection.git
+cd Nuclei-Templates-Collection
+python3 bulk_clone_repos.py
+#login with your git account ...
+python3 remove_duplicated_templates.py
+cd ..
+./nuclei -t Nuclei-Templates-Collection/community-templates/im403__nuclei-temp/high/CVE-2018-13379.yaml -l endpoind-urls.txt
+./nuclei -u https://my.target.site -t templates-35.txt
+
+./nuclei -l endpoind-urls.txt -t cves/ -t Nuclei-Templates-Collection/community-templates
++/root/nuclei-templates
+
+./nuclei -u http://www.greatplacetowork.com/best/list-2000-ch.htm -rl 1
+
+subfinder -d targetdomain.com -silent | httpx | ./nuclei -t technologies/tech-detect.yaml
