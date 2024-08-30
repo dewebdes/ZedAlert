@@ -1,5 +1,4 @@
 <code>./nuclei -u http://www.greatplacetowork.com/best/list-2000-ch.htm -rl 1 -dreq -p http://127.0.0.1:8080 | tee nuc.log</code>
-<code>subfinder -d targetdomain.com -silent | httpx | ./nuclei -t technologies/tech-detect.yaml</code>
 <hr>
 <h3>add extra themes</h3>
 <code>git clone https://github.com/emadshanab/Nuclei-Templates-Collection.git
