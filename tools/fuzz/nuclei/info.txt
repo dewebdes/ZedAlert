@@ -10,6 +10,6 @@ cd ..
 ./nuclei -l endpoind-urls.txt -t cves/ -t Nuclei-Templates-Collection/community-templates
 +/root/nuclei-templates
 
-./nuclei -u http://www.greatplacetowork.com/best/list-2000-ch.htm -rl 1 -dreq | tee nuc.log
+./nuclei -u http://www.greatplacetowork.com/best/list-2000-ch.htm -rl 1 -dreq -p http://127.0.0.1:8080 | tee nuc.log
 
 subfinder -d targetdomain.com -silent | httpx | ./nuclei -t technologies/tech-detect.yaml
