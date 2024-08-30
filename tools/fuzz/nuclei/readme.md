@@ -1,4 +1,8 @@
-git clone https://github.com/emadshanab/Nuclei-Templates-Collection.git
+<code>./nuclei -u http://www.greatplacetowork.com/best/list-2000-ch.htm -rl 1 -dreq -p http://127.0.0.1:8080 | tee nuc.log</code>
+<code>subfinder -d targetdomain.com -silent | httpx | ./nuclei -t technologies/tech-detect.yaml</code>
+<hr>
+<h3>add extra themes</h3>
+<code>git clone https://github.com/emadshanab/Nuclei-Templates-Collection.git
 cd Nuclei-Templates-Collection
 python3 bulk_clone_repos.py
 #login with your git account ...
@@ -8,8 +12,8 @@ cd ..
 ./nuclei -u https://my.target.site -t templates-35.txt
 
 ./nuclei -l endpoind-urls.txt -t cves/ -t Nuclei-Templates-Collection/community-templates
-+/root/nuclei-templates
++/root/nuclei-templates</code>
 
-./nuclei -u http://www.greatplacetowork.com/best/list-2000-ch.htm -rl 1 -dreq -p http://127.0.0.1:8080 | tee nuc.log
 
-subfinder -d targetdomain.com -silent | httpx | ./nuclei -t technologies/tech-detect.yaml
+
+
