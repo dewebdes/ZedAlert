@@ -19,9 +19,10 @@ echo "yelp.com" | ./waybackurls | uro | tee yelp-uro.txt
 uro > python3 setup.py install
 cat urls.txt | uro
 
-./fallparams -u https://3bon.booth.pm/items/4519345
-cat booth.pm-urls.txt | ./unfurl keys | sort | uniq -u > wayparams.txt
+echo "greatplacetowork.com" | ./waybackurls | tee greatplacetowork.com-urls.txt
+./fallparams -u https://www.greatplacetowork.com/best-workplaces
+cat greatplacetowork.com-urls.txt | ./unfurl keys | sort | uniq -u > wayparams.txt
 #append wayparams to parameters.txt
 #append 27 top xss to parameters.txt
 cat parameters.txt | sort | uniq -u > params.txt
-./x8 -u "https://3bon.booth.pm/items/4519345" -w params.txt -o x8.txt -d 12000 -x "http://127.0.0.1:8080"
+./x8 -u "https://www.greatplacetowork.com/best-workplaces" -w params.txt -o x8.txt -d 12000 -x "http://127.0.0.1:8080"
