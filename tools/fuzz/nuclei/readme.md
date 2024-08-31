@@ -12,7 +12,7 @@ cd ..
 
 ./nuclei -l endpoind-urls.txt -t cves/ -t Nuclei-Templates-Collection/community-templates
 +/root/nuclei-templates</code>
-
-
+<hr>
+<a href='https://github.com/dewebdes/ZedAlert/blob/main/tools/fuzz/nuclei/universal.txt'>UNIVERSAL VARABLES</a>
 
 
