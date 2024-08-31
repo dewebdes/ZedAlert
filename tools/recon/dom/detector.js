@@ -170,7 +170,8 @@ async function test_payloads() {
 		});
 
 		havexss = havexss.replace(new RegExp("[0-9]", "g"), "X");
-		if (havexss == basereflect) {
+		console.log(havexss + ' = ' + basereflect);
+		if ((havexss == basereflect) || (havexss == 'n')) {
 			havexss = 'n';
 		}else{
 			havexss = 'y';
