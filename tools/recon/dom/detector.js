@@ -7,7 +7,7 @@ var request = require('request');
 const { spawn } = require("child_process");
 const process = require("process");
 
-var baseurl = 'https://3bon.booth.pm/items/4519345';
+var baseurl = 'https://www.greatplacetowork.com/best-workplaces';
 
 var page = null;
 var browser = null;
@@ -169,15 +169,19 @@ async function test_payloads() {
 			}
 		});
 
-		havexss = havexss.replace(new RegExp("[0-9]", "g"), "X");
+		havexss = havexss.toString().replace(new RegExp("[0-9]", "g"), "");
+		havexss = havexss.toString().replaceAll('.', "");
+
 		console.log(havexss + ' = ' + basereflect);
-		if ((havexss == basereflect) || (havexss == 'n')) {
+		if ((havexss == basereflect) || (havexss == 'n') || (reflectstor.indexOf(havexss) > -1)) {
 			havexss = 'n';
 		}else{
+			reflectstor[reflectstor.length] = havexss.toString();
 			havexss = 'y';
 		}
 
 		console.log(payl + ' = ' + havexss);
+		console.log(reflectstor.length);
 
 		if (havexss != 'n') {
 			console.log(payl);
@@ -214,6 +218,7 @@ async function test_payloads() {
 }
 
 var basereflect = '';
+var reflectstor = [];
 
 async function test_unit() {
 
@@ -285,10 +290,13 @@ async function test_unit() {
 		if (havexss != 'n') {
 			basereflect = havexss;
 			basereflect = basereflect.replace(new RegExp("[0-9]", "g"), "X");
+			basereflect = basereflect.toString().replaceAll('.', "");
 		}
 		console.log(havexss);
 
 		console.log('base reflect: ' + basereflect + '\n\n');
+
+		reflectstor[reflectstor.length] = basereflect.toString();
 
 
 	} catch (ex) {
