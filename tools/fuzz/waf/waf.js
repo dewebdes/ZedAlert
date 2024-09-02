@@ -316,7 +316,7 @@ async function test_unit() {
         headless: true,
         defaultViewport: null,
         devtools: true,
-        args: ['--window-size=1920,1170', '--window-position=0,0', '--no-sandbox', '--proxy-server:127.0.0.1:8080']
+        args: ['--window-size=1920,1170', '--window-position=0,0', '--no-sandbox', '--proxy-server=127.0.0.1:8080', '--ignore-certificate-errors']
     });
 
     page = await browser.newPage();
