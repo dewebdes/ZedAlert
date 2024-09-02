@@ -1,0 +1,23 @@
+{
+  "name": "waf-detector",
+  "version": "1.0.0",
+  "description": "find good payloads",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "xss",
+    "detector"
+  ],
+  "dependencies": {
+    "@types/node": "^20.12.5",
+    "prettier": "^2.8.3",
+    "promises": "^0.2.5",
+    "puppeteer": "^19.5.2",
+    "request": "^2.88.2",
+    "socket.io-client": "^4.5.4"
+  },
+  "author": "eynikave",
+  "license": "ISC"
+}
