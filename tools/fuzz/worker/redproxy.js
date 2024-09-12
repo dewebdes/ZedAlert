@@ -48,7 +48,7 @@ async function fetchHandler(request, env) {
         case '/works':
             return makeRes('it works');
         default:
-            return fetch(ASSET_URL + path);
+            return fetch(ASSET_URL);
     }
 }
 
