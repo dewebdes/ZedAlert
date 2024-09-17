@@ -26,6 +26,18 @@
 <hr>
 <h1><a href='https://www.linkedin.com/posts/eyni-kave_aevaewaecaetaeuaex-aepaesaewaetaepaebahyaewaeu-activity-7225984502030872576-2k-S?utm_source=share&utm_medium=member_desktop'>راهنمای کامل...</a></h1>
 <hr>
+<code>cd /zalert
+cd db
+./bak.sh
+pm2 start bak.js
+cd ..
+cd app
+node app-1-spider
+node app-0-programs
+node app-2-programcap
+node app-3-traget
+pm2 start app-4-waybak
+pm2 start app-5-endpoint</code>
 <img src='https://github.com/dewebdes/ZedAlert/blob/main/image/banner-cropped.jpg' />
 <h5>#blackhat #bugbounty #watchtower #recon #fuzzing #hackingtools #automation</h5>
 <hr>
