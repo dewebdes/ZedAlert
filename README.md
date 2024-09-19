@@ -1,4 +1,4 @@
-<img src='https://github.com/dewebdes/ZedAlert/blob/main/image/chriki.png' />
+<img src='https://github.com/dewebdes/ZedAlert/blob/main/xmind/CHIRIKI.png' />
 <ul style='font-family:tahoma;list-style:none;'>
 <li>1.	نصب Apache, MySQL, PHP, PHPMyadmin روی ماشین لینوکس لوکال</li>
 <li>2.	git clone https://github.com/dewebdes/ZedAlert.git</li>
