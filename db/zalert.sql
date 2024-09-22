@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 17, 2024 at 11:07 PM
--- Server version: 8.0.39-0ubuntu0.24.04.1
+-- Generation Time: Sep 22, 2024 at 10:03 PM
+-- Server version: 8.0.39-0ubuntu0.24.04.2
 -- PHP Version: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -109,6 +109,21 @@ CREATE TABLE `targets` (
   `periority` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `watch`
+--
+
+CREATE TABLE `watch` (
+  `id` int NOT NULL,
+  `url` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` text NOT NULL,
+  `flag` text,
+  `sdate` datetime DEFAULT NULL,
+  `udate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -144,6 +159,12 @@ ALTER TABLE `targets`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `watch`
+--
+ALTER TABLE `watch`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -175,6 +196,12 @@ ALTER TABLE `program`
 -- AUTO_INCREMENT for table `targets`
 --
 ALTER TABLE `targets`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `watch`
+--
+ALTER TABLE `watch`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
