@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 22, 2024 at 10:03 PM
+-- Generation Time: Sep 25, 2024 at 07:56 PM
 -- Server version: 8.0.39-0ubuntu0.24.04.2
 -- PHP Version: 8.3.6
 
@@ -35,6 +35,22 @@ CREATE TABLE `black` (
   `flag` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `cdate` datetime NOT NULL,
   `udate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cve`
+--
+
+CREATE TABLE `cve` (
+  `id` int NOT NULL,
+  `name` text NOT NULL,
+  `git` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `sdate` datetime NOT NULL,
+  `udate` datetime NOT NULL,
+  `flag` text,
+  `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -124,6 +140,21 @@ CREATE TABLE `watch` (
   `udate` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `watchcve`
+--
+
+CREATE TABLE `watchcve` (
+  `id` int NOT NULL,
+  `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` text NOT NULL,
+  `flag` text,
+  `sdate` datetime NOT NULL,
+  `udate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -132,6 +163,12 @@ CREATE TABLE `watch` (
 -- Indexes for table `black`
 --
 ALTER TABLE `black`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cve`
+--
+ALTER TABLE `cve`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -165,6 +202,12 @@ ALTER TABLE `watch`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `watchcve`
+--
+ALTER TABLE `watchcve`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -172,6 +215,12 @@ ALTER TABLE `watch`
 -- AUTO_INCREMENT for table `black`
 --
 ALTER TABLE `black`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `cve`
+--
+ALTER TABLE `cve`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
@@ -202,6 +251,12 @@ ALTER TABLE `targets`
 -- AUTO_INCREMENT for table `watch`
 --
 ALTER TABLE `watch`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `watchcve`
+--
+ALTER TABLE `watchcve`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
