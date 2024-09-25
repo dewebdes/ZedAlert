@@ -94,7 +94,7 @@ async function addnoti(lg) {
 
 var indx = 0;
 
-var worker = "https://young-firefly-xxx.xxxxxx.workers.dev/?dieuri=";
+var worker = "https://young-firefly-xxx.xxxxx.workers.dev/?dieuri=";
 
 
 async function cve_check_1() {
@@ -128,6 +128,8 @@ async function cve_check_1() {
         var q = "https://cveawg.mitre.org/api/cve/" + payl;
         q = worker + encodeURIComponent(q);
         console.log(q);
+
+        //global.outgoing.doRequest_proxy(q);
 
         var cando = true;
         const response = await page.goto(q).catch(function (e) {
@@ -234,7 +236,7 @@ async function cve_check_1() {
                 var body2 = await global.outgoing.doRequest(global.queryapi, { query: encodeURIComponent(sql) });
                 console.log(':targetcheck-03' + ':::' + body2 + '\n**endlog**\n');
 
-                // await delay(12000);
+                await delay(3000);
 
 
                 //  cupage++;
