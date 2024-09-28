@@ -15,9 +15,10 @@
 
 
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary active" onclick="loadimg()">
+        <label class="btn btn-secondary active" style="font-size: :xx-large;" onclick="loadimg()">
             <input type="radio" name="options" id="option1" autocomplete="off" checked> NEXT
         </label>
+        <!--
         <label class="btn btn-secondary" onclick="loadfix()">
             <input type="radio" name="options" id="option2" autocomplete="off"> BACK
         </label>
@@ -27,7 +28,7 @@
         <label class="btn btn-secondary" url="" id="opeplat" onclick="window.open(jQuery(this).attr('url'))">
             <input type="radio" name="options" id="option32" autocomplete="off"> PAGE
         </label>
-        
+        -->
     </div>
 
     <div class="container">
@@ -50,7 +51,7 @@
             //jQuery('#opeplat').attr('url', res.page);
             jQuery('#plink').attr('href', addr);
             //jQuery("#spider").attr('pid', res.id);
-            jQuery("#tit").html(addr);
+            jQuery("#tit").html(res.name);
         }
 
         function loadimg() {
