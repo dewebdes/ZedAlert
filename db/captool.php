@@ -53,6 +53,13 @@ function select($sql){
 }
 
 switch($tbl){
+    case 'cve':
+        switch ($cmd) {
+            case 'git':
+                $sql = "SELECT * FROM cve WHERE status='ok' ORDER BY RAND( ) LIMIT 1";
+                select($sql);
+                break;
+        }
     case 'program':
         switch($cmd){
             case 'rand':
