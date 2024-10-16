@@ -106,3 +106,20 @@ with open('url-post.txt', 'w') as f:
 
 print(str(len(distinct_list_url)) + ' POST url count.')
 
+#####################################################################################
+
+distinct_by_url = set()
+for obj in feed:
+    distinct_by_url.add(obj.url.split('?')[0])
+
+distinct_counter_url = collections.Counter(distinct_by_url)
+distinct_list_url = [element for element, count in distinct_counter_url.items() if count == 1]
+distinct_list_url.sort()
+
+with open('path.txt', 'w') as f:
+    for line in distinct_list_url:
+        f.write(line)
+        f.write('\n')
+
+print(str(len(distinct_list_url)) + ' path count.')
+
