@@ -12,8 +12,8 @@ class bitem:
         self.request = request
         self.response = response
 
-white_hosts = ['www.torfs.be','service.force.com']
-#white_hosts = []
+#white_hosts = ['www.torfs.be','service.force.com']
+white_hosts = []
 
 feed = []
 tree = ET.parse('logger001.xml')
