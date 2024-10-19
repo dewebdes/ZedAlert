@@ -123,3 +123,49 @@ with open('path.txt', 'w') as f:
 
 print(str(len(distinct_list_url)) + ' path count.')
 
+#####################################################################################
+
+distinct_by_url_fuzz = set()
+distinct_by_url_param = set()
+distinct_by_url_dom = set()
+for obj in feed:
+    if len(obj.url.split('?')) > 1:
+        if obj.mimetype == "HTML":
+            distinct_by_url_dom.add(obj.url.split('?')[0] + '?')
+        else:
+            distinct_by_url_param.add(obj.url.split('?')[0] + '?')
+    else:
+        distinct_by_url_fuzz.add(obj.url.split('?')[0])
+
+distinct_counter_url = collections.Counter(distinct_by_url_fuzz)
+distinct_list_url = [element for element, count in distinct_counter_url.items() if count == 1]
+distinct_list_url.sort()
+
+with open('fuzz.txt', 'w') as f:
+    for line in distinct_list_url:
+        f.write(line)
+        f.write('\n')
+
+print(str(len(distinct_list_url)) + ' fuzz count.')
+
+distinct_counter_url = collections.Counter(distinct_by_url_param)
+distinct_list_url = [element for element, count in distinct_counter_url.items() if count == 1]
+distinct_list_url.sort()
+
+with open('param.txt', 'w') as f:
+    for line in distinct_list_url:
+        f.write(line)
+        f.write('\n')
+
+print(str(len(distinct_list_url)) + ' param count.')
+
+distinct_counter_url = collections.Counter(distinct_by_url_dom)
+distinct_list_url = [element for element, count in distinct_counter_url.items() if count == 1]
+distinct_list_url.sort()
+
+with open('dom.txt', 'w') as f:
+    for line in distinct_list_url:
+        f.write(line)
+        f.write('\n')
+
+print(str(len(distinct_list_url)) + ' dom count.')
