@@ -1,10 +1,8 @@
 const fs = require('fs');
 
 var url = "https://learn.greatplacetowork.com/index.php/FUZZ1/getFUZZ2";
-var goodstatus = 400;
-var goodresponse = '"error":true,"errorCode":400,"errorType":"invalid"';
 var wordlist = 'raft-medium-directories-lowercase.txt';
-var worker = "https://flat-dust-acfX.XXXXXX.workers.dev/?dieuri=";
+var worker = "https://lucky-sea-f31a.eynikave.workers.dev/?dieuri=";
 
 
 async function readFile(path) {
@@ -21,7 +19,6 @@ async function readFile(path) {
 async function writeToFile(filePath, dataToWrite) {
     try {
         await fs.promises.writeFile(filePath, dataToWrite, 'utf8');
-        //console.log('Data written successfully!');
     } catch (error) {
         console.error('Error writing data:', error);
     }
