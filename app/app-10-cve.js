@@ -129,6 +129,11 @@ async function cve_check_1() {
         q = worker + encodeURIComponent(q);
         console.log(q);
 
+         await page._client().send("Network.enable", {
+            maxResourceBufferSize: 1024 * 1204 * 50,
+            maxTotalBufferSize: 1024 * 1204 * 100,
+          });
+        
         //global.outgoing.doRequest_proxy(q);
 
         var cando = true;
