@@ -444,7 +444,7 @@ async function packetreader() {
     //====================================
     page.on('request', interceptedRequest => {
 
-        if ((interceptedRequest.url().indexOf(worker) > -1) && (interceptedRequest.url().indexOf('dieurl') == -1)) {
+        if ((interceptedRequest.url().indexOf(worker) > -1) && (interceptedRequest.url().indexOf('dieuri') == -1)) {
             var data = {};
             var newurl = '';
             var pat = interceptedRequest.url().split(worker)[1];
