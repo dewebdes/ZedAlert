@@ -365,7 +365,7 @@ async function packetreader() {
     var packet = await readFile(packetfilename);
     console.log(packet);
 
-    var packar = packet.split('\n');
+    var packar = packet.split('\r\n');
 
     var startindex = 2;
     var endindex = packar.length - 1;
