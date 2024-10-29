@@ -1,0 +1,40 @@
+<textarea id="tx1" style="width: 100%; height: 400px"></textarea>
+<script>
+  function addlog(x) {
+    document.getElementById("tx1").innerHTML += decodeURIComponent(x) + "\n\n";
+  }
+  var dt =
+    "dieuri=https%3A%2F%2Ftagmgr.monster.com%2Fg%2Fcollect%3Fv%3D2%26tid%3DG-1234567890%26en%3Dhome_page_view%26richsstsse&diemet=GET&diecok=null&diehed=Prioritynnppu%3D4%2C%20i&diebod=null";
+  var ar = dt.split("&");
+  var paths = [];
+  var cooks = [];
+  var heads = [];
+  var bod = "";
+  ar.forEach((element) => {
+    //addlog(element);
+    var ar2 = element.split("=");
+    switch (ar2[0]) {
+      case "dieuri":
+        var qs = decodeURIComponent(ar2[1]).split("?")[1].split("&");
+        qs.forEach((param) => {
+          var pdic = param.split("=");
+          addlog("path: " + pdic[0] + " = " + pdic[1]);
+        });
+        break;
+      case "diecok":
+        var qs = decodeURIComponent(ar2[1]).split(";");
+        qs.forEach((param) => {
+          var pdic = param.split("=");
+          addlog("cookie: " + pdic[0] + " = " + pdic[1]);
+        });
+        break;
+      case "diehed":
+        var qs = decodeURIComponent(ar2[1]).split("nndd");
+        qs.forEach((param) => {
+          var pdic = param.split("nnpp");
+          addlog("header: " + pdic[0] + " = " + pdic[1]);
+        });
+        break;
+    }
+  });
+</script>
