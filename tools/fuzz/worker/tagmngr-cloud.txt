@@ -1,0 +1,5 @@
+GET /?ascii=127-encod&dieuri=https%3A%2F%2Ftagmgr.monster.com%2Fg%2Fcollect%3Fv%3D2%26tid%3DG-1234567890%26en%3Dhome_page_view%26richsstsse&diemet=GET&diecok=null&diehed=Prioritynnppu%3D4%2C%20i&diebod=null HTTP/2
+Host: throbbing-haze-xxx.xxxx.workers.dev
+User-Agent: Fuzz Faster U Fool v2.1.0
+Accept-Encoding: gzip, deflate, br
+
