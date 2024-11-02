@@ -186,6 +186,29 @@ async function test_payloads() {
         headstr += (die_heads[k].name + 'nnpp' + die_heads[k].val + 'nndd');
     }
 
+    /*
+        var headstr = '';
+        for (var k = 0; k <= die_heads.length - 1; k++) {
+            headstr += (die_heads[k].name + 'nnpp' + die_heads[k].val + 'nndd');
+        }
+    */
+
+    //hedstr = hedstr.replace(new RegExp("\r\n" + '$'), 'finish');
+
+    var headstr = die_heads.map(function (elem) {
+        return elem.name + 'nnpp' + elem.val;
+    }).join("nndd");
+
+
+    if (isnullval(die_cook) == true) { die_cook = 'null'; }
+    if (isnullval(headstr) == true) { headstr = 'null'; }
+
+
+    //    var adr = encodeURIComponent('https://' + die_host + die_pat);
+
+    //  baseurl = worker + '?dieuri=' + adr + '&diemet=' + die_met + '&diecok=' + encodeURIComponent(die_cook) + '&diehed=' + encodeURIComponent(headstr) + '&diebod=' + encodeURIComponent(die_body);
+
+
     var headstr2 = headstr;
     var die_pat2 = die_pat;
     var die_cook2 = die_cook;
@@ -219,6 +242,16 @@ async function test_payloads() {
     var adr = encodeURIComponent('https://' + die_host + die_pat2);
 
     baseurl = worker + '?dieuri=' + adr + '&diemet=' + die_met + '&diecok=' + encodeURIComponent(die_cook2) + '&diehed=' + encodeURIComponent(headstr2) + '&diebod=' + encodeURIComponent(die_body);
+
+
+
+
+
+
+
+
+
+
 
 
     //var q = 'http://localhost/dom.html';
@@ -278,10 +311,20 @@ async function test_payloads() {
 
 async function final_payload() {
 
-    var headstr = '';
-    for (var k = 0; k <= die_heads.length - 1; k++) {
-        headstr += (die_heads[k].name + 'nnpp' + die_heads[k].val + 'nndd');
-    }
+
+    var headstr = die_heads.map(function (elem) {
+        return elem.name + 'nnpp' + elem.val;
+    }).join("nndd");
+
+
+    if (isnullval(die_cook) == true) { die_cook = 'null'; }
+    if (isnullval(headstr) == true) { headstr = 'null'; }
+
+
+    //    var adr = encodeURIComponent('https://' + die_host + die_pat);
+
+    //  baseurl = worker + '?dieuri=' + adr + '&diemet=' + die_met + '&diecok=' + encodeURIComponent(die_cook) + '&diehed=' + encodeURIComponent(headstr) + '&diebod=' + encodeURIComponent(die_body);
+
 
     var headstr2 = headstr;
     var die_pat2 = die_pat;
@@ -607,7 +650,7 @@ async function test_unit() {
 
 
 var packetfilename = 'packet';
-var worker = 'https://throbbing-haze-xxx.xxx.workers.dev/';
+var worker = 'https://throbbing-haze-271c.eynikave.workers.dev/';
 var die_cook = 'null';
 var die_heads = [];
 var die_body = 'null';
@@ -752,7 +795,7 @@ var outputfile = 'packet_clean';
 
     await test_unit();
     //console.log('base reflect = ' + basereflect);
-    //await forever();
+    await forever();
 
 
 

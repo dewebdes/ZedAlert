@@ -66,7 +66,7 @@ async function writeToFile(filePath, dataToWrite) {
 
 
 var packetfilename = 'packet';
-var worker = 'https://throbbing-haze-xxx.xxx.workers.dev/';
+var worker = 'https://throbbing-haze-271c.eynikave.workers.dev/';
 var die_cook = 'null';
 var die_heads = [];
 var die_body = 'null';
@@ -245,6 +245,8 @@ var outputfile = 'packet_clean';
     console.log("\n\npat = " + die_pat2);
     console.log("\n\nhost = " + die_host2);
     console.log("\n\nbody = " + die_body2);
+
+    die_host2 = die_host2.replaceAll("\r\n", "");
 
     var outpacket = await readFile('clean_reverse_packet_them.txt');
     outpacket = outpacket.replaceAll("{{verb}}", die_met2);

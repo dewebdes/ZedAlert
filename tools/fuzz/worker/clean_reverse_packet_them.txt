@@ -1,6 +1,5 @@
 {{verb}} {{path}} HTTP/2
-Host: {{host}}
-{{cookie}}
+Host: {{host}}{{cookie}}
 {{headers}}
 
 {{body}}
