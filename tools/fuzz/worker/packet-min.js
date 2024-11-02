@@ -546,11 +546,22 @@ function request_list_maker() {
 
 async function test_unit() {
 
+    /*
+        var headstr = '';
+        for (var k = 0; k <= die_heads.length - 1; k++) {
+            headstr += (die_heads[k].name + 'nnpp' + die_heads[k].val + 'nndd');
+        }
+    */
 
-    var headstr = '';
-    for (var k = 0; k <= die_heads.length - 1; k++) {
-        headstr += (die_heads[k].name + 'nnpp' + die_heads[k].val + 'nndd');
-    }
+    //hedstr = hedstr.replace(new RegExp("\r\n" + '$'), 'finish');
+
+    var headstr = die_heads.map(function (elem) {
+        return elem.name + 'nnpp' + elem.val;
+    }).join("nndd");
+
+
+    if (isnullval(die_cook) == true) { die_cook = 'null'; }
+    if (isnullval(headstr) == true) { headstr = 'null'; }
 
 
     var adr = encodeURIComponent('https://' + die_host + die_pat);
@@ -596,7 +607,7 @@ async function test_unit() {
 
 
 var packetfilename = 'packet';
-var worker = 'https://throbbing-haze-xxxx.xxxx.workers.dev/';
+var worker = 'https://throbbing-haze-xxx.xxx.workers.dev/';
 var die_cook = 'null';
 var die_heads = [];
 var die_body = 'null';
@@ -644,7 +655,19 @@ var outputfile = 'packet_clean';
 
     });
 
+    const readline = require('node:readline');
 
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+
+    //const it = rl[Symbol.asyncIterator]();
+    //const line1 = await it.next();
+    packetfilename = await new Promise(resolve => {
+        rl.question("packet file name, default packet:\n", resolve)
+    })
+    console.log(packetfilename)
 
     var packet = await readFile(packetfilename);
     console.log(packet);
@@ -693,22 +716,30 @@ var outputfile = 'packet_clean';
 
     for (var j = startindex; j <= endindex - 1; j++) {
         var el = packar[j];
-        var jar = el.split(':');
-        try {
-            var dname = jar[0].trim();
-            var dval = jar[1].trim();
-            if (dname.toLowerCase() == 'cookie') {
-                die_cook = dval;
-            } else {
-                die_heads[die_heads.length] = { name: dname, val: dval };
+        if (isnullval(el) == false) {
+            var jar = el.split(':');
+            try {
+                var dname = jar[0].trim();
+                var dval = el.replaceAll(dname + ":", "").trim();
+                if (dname.toLowerCase() == 'cookie') {
+                    die_cook = dval;
+                } else {
+                    die_heads[die_heads.length] = { name: dname, val: dval };
+                }
+            } catch (ex) {
+                console.log("eoor:\n" + el);
             }
-        } catch (ex) {
-            console.log("eoor:\n" + el);
         }
 
     }
 
     console.log("\n\n**********************************\n\n");
+
+
+
+
+
+
 
     console.log(die_http);
     console.log('url = ' + die_met + ' https://' + die_host + die_pat);
@@ -721,7 +752,7 @@ var outputfile = 'packet_clean';
 
     await test_unit();
     //console.log('base reflect = ' + basereflect);
-    await forever();
+    //await forever();
 
 
 

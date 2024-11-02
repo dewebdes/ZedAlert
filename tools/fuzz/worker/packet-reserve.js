@@ -66,6 +66,7 @@ async function writeToFile(filePath, dataToWrite) {
 
 
 var packetfilename = 'packet';
+var worker = 'https://throbbing-haze-xxx.xxx.workers.dev/';
 var die_cook = 'null';
 var die_heads = [];
 var die_body = 'null';
@@ -114,7 +115,7 @@ var outputfile = 'packet_clean';
     var packet = await readFile(packetfilename);
     console.log(packet);
 
-    var packar = packet.split('\n');
+    var packar = packet.split('\r\n');
 
     var startindex = 2;
     var endindex = packar.length - 1;
@@ -131,13 +132,13 @@ var outputfile = 'packet_clean';
 
     die_body = 'null';
     if (isnullval(packar[packar.length - 1]) == false) {
-        die_body = packar[packar.length - 1].trim();
+        // die_body = packar[packar.length - 1].trim();
     }
 
     die_met = 'GET';
     var tempar = packar[0].split(' ');
     if (isnullval(tempar[0]) == false) {
-        die_met = tempar[0].trim();
+        //die_met = tempar[0].trim();
     }
 
     die_pat = '/';
@@ -163,9 +164,9 @@ var outputfile = 'packet_clean';
             var dname = jar[0].trim();
             var dval = jar[1].trim();
             if (dname.toLowerCase() == 'cookie') {
-                die_cook = dval;
+                //    die_cook = dval;
             } else {
-                die_heads[die_heads.length] = { name: dname, val: dval };
+                //      die_heads[die_heads.length] = { name: dname, val: dval };
             }
         } catch (ex) {
             console.log("eoor:\n" + el);
@@ -181,9 +182,20 @@ var outputfile = 'packet_clean';
     var hedstr = "";
 
     cloud_request_ar.forEach((element) => {
+        console.log(element);
+    });
+
+    //return;
+    console.log("\n\n===================================================\n\n");
+
+    cloud_request_ar.forEach((element) => {
         var part = element.split("=");
         var val = decodeURIComponent(part[1]);
         if (val.trim() == "null") { val = ""; }
+
+        console.log("\n\npart: " + part[0] + " = " + val + "\n\n");
+
+
         switch (part[0]) {
             case "dieuri":
                 var parsed = urlobj.parse(val);
@@ -195,8 +207,10 @@ var outputfile = 'packet_clean';
                     var hedar = val.split('nndd');
                     hedar.forEach((element) => {
                         var hedparam = element.split('nnpp');
-                        die_heads2[die_heads2.length] = { name: hedparam[0], value: hedparam[1] };
-                        hedstr += hedparam[0] + ": " + hedparam[1] + "\r\n";
+                        if (isnullval(hedparam[0]) == false) {
+                            die_heads2[die_heads2.length] = { name: hedparam[0], value: hedparam[1] };
+                        }
+                        //hedstr += hedparam[0] + ": " + hedparam[1] + "\r\n";
                     });
                 }
                 break;
@@ -205,8 +219,10 @@ var outputfile = 'packet_clean';
                     var cokar = val.split(';');
                     cokar.forEach((element) => {
                         var cokparam = element.split('=');
-                        die_cook2[die_cook2.length] = { name: cokparam[0], value: cokparam[1] };
-                        cokstr += cokparam[0] + "=" + cokparam[1] + "; ";
+                        if (isnullval(cokparam[0]) == false) {
+                            die_cook2[die_cook2.length] = { name: cokparam[0], value: cokparam[1] };
+                            //cokstr += cokparam[0] + "=" + cokparam[1] + "; ";
+                        }
                     });
                 }
                 break;
@@ -214,6 +230,7 @@ var outputfile = 'packet_clean';
                 if ((isnullval(val) == false)) {
                     die_body2 = val;
                 }
+                break;
             case "diemet":
                 if ((isnullval(val) == false)) {
                     die_met2 = val;
@@ -222,6 +239,12 @@ var outputfile = 'packet_clean';
         }
     });
 
+    console.log("\n\n===================================================\n\n");
+
+    console.log("\n\nmet = " + die_met2);
+    console.log("\n\npat = " + die_pat2);
+    console.log("\n\nhost = " + die_host2);
+    console.log("\n\nbody = " + die_body2);
 
     var outpacket = await readFile('clean_reverse_packet_them.txt');
     outpacket = outpacket.replaceAll("{{verb}}", die_met2);
@@ -241,9 +264,22 @@ var outputfile = 'packet_clean';
         )
         */
 
-    hedstr = hedstr.replace(new RegExp("\r\n" + '$'), 'finish');
+    // hedstr = hedstr.replace(new RegExp("\r\n" + '$'), '');
 
-    outpacket = outpacket.replaceAll("{{cookie}}", cokstr);
+
+
+    var cookstr = "";
+    try {
+        die_cook2.map(function (elem) {
+            return elem.name + '=' + elem.value;
+        }).join(";");
+    } catch (ex) { cookstr = ""; }
+    var hedstr = die_heads2.map(function (elem) {
+        return elem.name + ': ' + elem.value;
+    }).join("\r\n");
+
+    outpacket = outpacket.replaceAll("{{cookie}}", cookstr);
+    if (isnullval(cookstr) == true) { outpacket = outpacket.replaceAll("{{cookie}}\r\n", ""); }
     outpacket = outpacket.replaceAll("{{headers}}", hedstr);
 
     var tt = new Date().valueOf().toString();
