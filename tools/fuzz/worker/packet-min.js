@@ -650,7 +650,7 @@ async function test_unit() {
 
 
 var packetfilename = 'packet';
-var worker = 'https://throbbing-haze-271c.eynikave.workers.dev/';
+var worker = 'https://throbbing-haze-xxx.xxx.workers.dev/';
 var die_cook = 'null';
 var die_heads = [];
 var die_body = 'null';
