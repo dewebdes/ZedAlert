@@ -596,7 +596,7 @@ async function test_unit() {
 
 
 var packetfilename = 'clean_packet';
-var worker = 'https://throbbing-haze-xxx.xxxxx.workers.dev/';
+var worker = 'https://throbbing-haze-xxx.xxx.workers.dev/';
 var die_cook = 'null';
 var die_heads = [];
 var die_body = 'null';
@@ -645,6 +645,11 @@ function random(low, high) {
         output: process.stdout,
     });
 
+    var defmet = await new Promise(resolve => {
+        rl.question("default method, default GET:\n", resolve)
+    })
+    console.log(defmet);
+
     rl.question(`packet file name, default "packet":\n`, async name => {
         if (isnullval(name) == true) { packetfilename = 'packet'; } else {
             packetfilename = name;
@@ -658,7 +663,26 @@ function random(low, high) {
         var packet = await readFile(packetfilename);
         console.log(packet);
 
-        var packar = packet.split('\n');
+
+        //======================================
+
+        var packet_inject = packet;
+        var ascii_count = packet.split("{{ascii").length;
+        packet_inject = packet_inject.replaceAll("*", "");
+        packet_inject = packet_inject.replaceAll("{{verb}}", defmet);
+        for (var i = 0; i <= packet_inject.length - 1; i++) {
+            packet_inject = packet_inject.replaceAll("{{ascii-" + i + "}}", "*");
+        }
+        var tt = new Date().valueOf().toString();
+        await writeToFile("inject_" + tt, packet_inject);
+        console.log("inject_" + tt + " created...");
+
+        //======================================
+
+
+
+
+        var packar = packet.split('\r\n');
 
 
         console.log("packet len: " + packar.length);
@@ -724,12 +748,12 @@ function random(low, high) {
 
         var baseurl = 'https://' + die_host + die_pat;
 
-        console.log("\n\n**********************************\n\n");
+        //console.log("\n\n**********************************\n\n");
 
-        console.log(die_http);
-        console.log('url = ' + baseurl);
+        //console.log(die_http);
+        //console.log('url = ' + baseurl);
 
-        console.log("\n\n**********************************\n\n");
+        //console.log("\n\n**********************************\n\n");
 
 
         //{{ascii}},{{verb}}
@@ -764,7 +788,7 @@ function random(low, high) {
         for (var i = 0; i <= ascii_count - 1; i++) {
 
             asciiar.forEach((element) => {
-                console.log("ascii = " + element);
+                //console.log("ascii = " + element);
                 var newurl = baseurl.replaceAll("{{ascii-" + i + "}}", encodeURIComponent(String.fromCharCode(element)));
                 newurl = newurl.replaceAll("dieuri=", "ascii=" + element + "-ascii&dieuri=");
                 urls[urls.length] = newurl;
@@ -785,7 +809,7 @@ function random(low, high) {
         var urlstring = [];
 
         urls.forEach((element) => {
-            var newurl = element.replaceAll("{{verb}}", "GET");
+            var newurl = element.replaceAll("{{verb}}", defmet);
             for (var i = 0; i <= ascii_count - 1; i++) {
                 newurl = newurl.replaceAll("{{ascii-" + i + "}}", "");
             }
@@ -793,15 +817,18 @@ function random(low, high) {
         });
 
 
+        for (var i = 0; i <= 20; i++) {
+            urlstring[urlstring.length] = urlstring[urlstring.length - 1];
+        }
 
         var tt = new Date().valueOf().toString();
         await writeToFile("fuzz_" + tt, urlstring.join("\n"));
 
         console.log(urls.length + " urls write to fuzz_" + tt);
-        console.log("./ffuf -mc all -x http://127.0.0.1:8080 -w fuzz_" + tt + " -u FUZZ");
-
-
-
+        console.log("./ffuf -mc all -x http://127.0.0.1:8080 -w fuzz_" + tt + " -u FUZZ -t 10");
+        console.log('python3 /zalert/sqlmap/sqlmap.py -r /zalert/temp/param/dom/inject_' + tt + ' -a --answers="follow=Y" --batch --tamper=chardoubleencode.py --level=5 --risk=3 --proxy=http://127.0.0.1:8080');
+        console.log('python3 /zalert/commix/commix.py -r /zalert/temp/param/dom/inject_' + tt + ' --tamper="doublequotes2" --level=3 --batch --proxy=http://127.0.0.1:8080');
+        console.log("./mitmweb --set block_global=false --ssl-insecure -s multiproxy.py");
     });
 })();
 
