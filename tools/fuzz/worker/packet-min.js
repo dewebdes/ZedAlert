@@ -558,8 +558,9 @@ function extract_parts() {
     var ar1 = die_cook.split(';');
     for (var i = 0; i <= ar1.length - 1; i++) {
         var ar2 = ar1[i].split('=');
-        var dval = ar1[i].replace(ar2[0].trim(), '');
+        var dval = ar1[i].replace(ar2[0].trim() + '=', '');
         all_parts[all_parts.length] = { part: 'cookie', name: ar2[0].trim(), val: dval, force: true };
+        console.log("cookie: " + all_parts[all_parts.length - 1].name + " = " + all_parts[all_parts.length - 1].val);
     }
     for (var i = 0; i <= die_heads.length - 1; i++) {
         all_parts[all_parts.length] = { part: 'header', name: die_heads[i].name, val: die_heads[i].val, force: true };
@@ -567,7 +568,7 @@ function extract_parts() {
 
     //======================
     for (var i = 0; i <= all_parts.length - 1; i++) {
-        console.log(all_parts[i].part + ' : ' + all_parts[i].name + ' = ' + all_parts[i].val);
+        //console.log(all_parts[i].part + ' : ' + all_parts[i].name + ' = ' + all_parts[i].val);
     }
 }
 
@@ -616,7 +617,7 @@ async function test_unit() {
 
     var q = baseurl;
 
-    console.log(q);
+    //console.log(q);
 
     const response = await page.goto(q, { timeout: 0 });
 
@@ -624,14 +625,14 @@ async function test_unit() {
     try {
 
         var statuscode = response.status();
-        console.log(statuscode);
+        // console.log(statuscode);
 
         //if (statuscode == 200) {
         const responseBody = await response.text();
         //var rspj = JSON.parse(responseBody);
 
         //console.log(responseBody.length);
-        console.log(responseBody);
+        // console.log(responseBody);
 
         basestatus = statuscode;
         baseresponse = responseBody;
@@ -650,7 +651,7 @@ async function test_unit() {
 
 
 var packetfilename = 'packet';
-var worker = 'https://throbbing-haze-xxx.xxx.workers.dev/';
+var worker = 'https://throbbing-haze-271c.eynikave.workers.dev/';
 var die_cook = 'null';
 var die_heads = [];
 var die_body = 'null';
@@ -688,12 +689,27 @@ var outputfile = 'packet_clean';
             }
             var adr = encodeURIComponent('https://' + die_host + '/' + pat);
 
-            var newurl = worker + '?dieuri=' + adr + '&diemet=' + 'GET' + '&diecok=' + encodeURIComponent(die_cook) + '&diehed=' + encodeURIComponent(headstr) + '&diebod=' + 'null';
+            var newurl = worker + '?dieuri=' + adr + '&diemet=' + interceptedRequest.method() + '&diecok=' + encodeURIComponent(die_cook) + '&diehed=' + encodeURIComponent(headstr) + '&diebod=' + 'null';
             data.url = newurl;
             interceptedRequest.continue(data);
 
         } else {
-            interceptedRequest.continue();
+            if (interceptedRequest.url().indexOf('dieuri') == -1) {
+                var data = {};
+                var newurl = '';
+                var headstr = '';
+                for (var k = 0; k <= die_heads.length - 1; k++) {
+                    headstr += (die_heads[k].name + 'nnpp' + die_heads[k].val + 'nndd');
+                }
+                var adr = encodeURIComponent(interceptedRequest.url());
+
+                var newurl = worker + '?dieuri=' + adr + '&diemet=' + interceptedRequest.method() + '&diecok=' + encodeURIComponent(die_cook) + '&diehed=' + encodeURIComponent(headstr) + '&diebod=' + 'null';
+                data.url = newurl;
+                interceptedRequest.continue(data);
+
+            } else {
+                interceptedRequest.continue();
+            }
         }
 
     });
@@ -710,10 +726,10 @@ var outputfile = 'packet_clean';
     packetfilename = await new Promise(resolve => {
         rl.question("packet file name, default packet:\n", resolve)
     })
-    console.log(packetfilename)
+    //console.log(packetfilename)
 
     var packet = await readFile(packetfilename);
-    console.log(packet);
+    //console.log(packet);
 
     var packar = packet.split('\r\n');
 
@@ -723,8 +739,8 @@ var outputfile = 'packet_clean';
 
 
     for (var i = 0; i <= packar.length - 1; i++) {
-        console.log('\n\n' + i + ':' + packar[i]);
-        console.log('\n\n' + i + ':' + packar[i].trim().charCodeAt(packar[i].trim().length - 1));
+        //console.log('\n\n' + i + ':' + packar[i]);
+        //console.log('\n\n' + i + ':' + packar[i].trim().charCodeAt(packar[i].trim().length - 1));
         if (isnullval(packar[i].trim()) == true) {
             endindex = i;
         }
@@ -784,13 +800,13 @@ var outputfile = 'packet_clean';
 
 
 
-    console.log(die_http);
-    console.log('url = ' + die_met + ' https://' + die_host + die_pat);
-    console.log('body: ' + die_body);
-    console.log('\ncookies:\n' + die_cook);
-    console.log('\nheads:\n');
+    //console.log(die_http);
+    //console.log('url = ' + die_met + ' https://' + die_host + die_pat);
+    ///console.log('body: ' + die_body);
+    //console.log('\ncookies:\n' + die_cook);
+    //console.log('\nheads:\n');
     for (var k = 0; k <= die_heads.length - 1; k++) {
-        console.log(die_heads[k].name + ' : ' + die_heads[k].val);
+        //console.log(die_heads[k].name + ' : ' + die_heads[k].val);
     }
 
     await test_unit();

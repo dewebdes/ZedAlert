@@ -66,7 +66,7 @@ async function writeToFile(filePath, dataToWrite) {
 
 
 var packetfilename = 'packet';
-var worker = 'https://throbbing-haze-xxx.xxx.workers.dev/';
+var worker = 'https://throbbing-haze-271c.eynikave.workers.dev/';
 var die_cook = 'null';
 var die_heads = [];
 var die_body = 'null';
@@ -187,13 +187,13 @@ var outputfile = 'packet_clean';
 
     //return;
     console.log("\n\n===================================================\n\n");
-
+    var die_cook2 = [];
     cloud_request_ar.forEach((element) => {
         var part = element.split("=");
         var val = decodeURIComponent(part[1]);
         if (val.trim() == "null") { val = ""; }
 
-        console.log("\n\npart: " + part[0] + " = " + val + "\n\n");
+        //console.log("\n\npart: " + part[0] + " = " + val + "\n\n");
 
 
         switch (part[0]) {
@@ -222,6 +222,7 @@ var outputfile = 'packet_clean';
                         if (isnullval(cokparam[0]) == false) {
                             die_cook2[die_cook2.length] = { name: cokparam[0], value: cokparam[1] };
                             //cokstr += cokparam[0] + "=" + cokparam[1] + "; ";
+                            console.log("cookie: " + die_cook2[die_cook2.length - 1].name + " = " + die_cook2[die_cook2.length - 1].value);
                         }
                     });
                 }
@@ -239,12 +240,13 @@ var outputfile = 'packet_clean';
         }
     });
 
+
     console.log("\n\n===================================================\n\n");
 
-    console.log("\n\nmet = " + die_met2);
-    console.log("\n\npat = " + die_pat2);
-    console.log("\n\nhost = " + die_host2);
-    console.log("\n\nbody = " + die_body2);
+    //console.log("\n\nmet = " + die_met2);
+    //console.log("\n\npat = " + die_pat2);
+    //console.log("\n\nhost = " + die_host2);
+    //console.log("\n\nbody = " + die_body2);
 
     die_host2 = die_host2.replaceAll("\r\n", "");
 
@@ -253,6 +255,7 @@ var outputfile = 'packet_clean';
     outpacket = outpacket.replaceAll("{{path}}", die_pat2);
     outpacket = outpacket.replaceAll("{{host}}", die_host2);
     outpacket = outpacket.replaceAll("{{body}}", die_body2);
+    //{{cookie}}
 
     /*
         var cookstr = die_cook2.reduce(function (a, b) {
@@ -271,11 +274,11 @@ var outputfile = 'packet_clean';
 
 
     var cookstr = "";
-    try {
-        die_cook2.map(function (elem) {
-            return elem.name + '=' + elem.value;
-        }).join(";");
-    } catch (ex) { cookstr = ""; }
+    //try {
+    cookstr = die_cook2.map(function (elem) {
+        return elem.name + '=' + elem.value;
+    }).join(";");
+    //} catch (ex) { cookstr = ""; }
     var hedstr = die_heads2.map(function (elem) {
         return elem.name + ': ' + elem.value;
     }).join("\r\n");
