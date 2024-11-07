@@ -107,16 +107,21 @@ var outputfile = '300-params';
     console.log(inputar.length);
     var sorted = [];
     inputar.forEach((element) => {
-        sorted.push({ param: element, len: element.length });
+        sorted.push({ param: element.trim(), len: element.length });
     });
     var lenar = [];
     for (var i = 0; i <= sorted.length; i++) {
         console.log(i);
         newl = sorted.filter(tm => tm.len == i);//;
         //console.log(newl);
-        //console.log(newl.map(u => u.param).join('\n'));
+        var prmar = newl.map(u => u.param);//.join('\n'));
+        var prmar2 = prmar.sort(function (a, b) {
+            return a.length - b.length || a.localeCompare(b)
+        });
+        //prmar = prmar.sort((a, b) => a.localeCompare(b));
+        var pushstr = prmar2.join('\n');
         if (newl.length > 0) {
-            lenar.push({ len: i, ar: newl.map(u => u.param).join('\n') });
+            lenar.push({ len: i, ar: pushstr });
         } else {
             console.log("\n\nfinish....\n\n");
             break;

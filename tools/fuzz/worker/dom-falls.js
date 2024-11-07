@@ -172,9 +172,13 @@ async function test_payloads() {
 
 
     var adr = encodeURIComponent('https://' + die_host + die_pat + '?' + payl + '=scobar');
+    if (die_pat.indexOf("?") > -1) {
+        adr = encodeURIComponent('https://' + die_host + die_pat + '&' + payl + '=scobar');
+    }
 
     baseurl = worker + '?dieuri=' + adr + '&diemet=' + die_met + '&diecok=' + encodeURIComponent(die_cook) + '&diehed=' + encodeURIComponent(headstr) + '&diebod=' + encodeURIComponent(die_body);
 
+    console.log(adr);
 
     //var q = 'http://localhost/dom.html';
     var q = baseurl;
@@ -369,7 +373,13 @@ async function test_unit() {
     if (isnullval(die_cook) == true) { die_cook = 'null'; }
     if (isnullval(headstr) == true) { headstr = 'null'; }
 
+
     var adr = encodeURIComponent('https://' + die_host + die_pat + '?scobar=scobar');
+    if (die_pat.indexOf("?") > -1) {
+        adr = encodeURIComponent('https://' + die_host + die_pat + '&scobar=scobar');
+    }
+
+    console.log(adr);
 
     baseurl = worker + '?dieuri=' + adr + '&diemet=' + die_met + '&diecok=' + encodeURIComponent(die_cook) + '&diehed=' + encodeURIComponent(headstr) + '&diebod=' + encodeURIComponent(die_body);
 
@@ -474,7 +484,7 @@ async function test_unit() {
 
 
 var packetfilename = '';
-var worker = 'https://throbbing-haze-271c.eynikave.workers.dev/';
+var worker = 'https://throbbing-haze-xxx.xxx.workers.dev/';
 var die_cook = 'null';
 var die_heads = [];
 var die_body = 'null';
