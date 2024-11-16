@@ -4,6 +4,8 @@ from mitmproxy.net.server_spec import ServerSpec
 from mitmproxy import ctx
 import urllib.parse
 
+#./mitmweb --set block_global=false --ssl-insecure -s multiproxy-injection.py
+
 class headobj:
     def __init__(self, name, val):
         self.name = name
