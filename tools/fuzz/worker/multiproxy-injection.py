@@ -37,12 +37,21 @@ class multiproxy:
 				cookstr = urllib.parse.quote_plus(v)
 			#print("%-20s: %s" % (k.upper(), v))
 		headstr = "nndd".join((str(x.name) + "nnpp" + str(x.val)) for x in headlist)
-		finalurl += "&diehed=" + headstr + "&diecok=" + cookstr + "&diebod=" + urllib.parse.quote_plus(flow.request.text) 
+		dcok = cookstr
+		if dcok == "":
+			dcok = "null"
+		dbod = flow.request.text
+		if dbod == "":
+			dbod = "null"
+		else:
+			dbod = urllib.parse.quote_plus(flow.request.text)
+			
+		finalurl += "&diehed=" + headstr + "&diecok=" + dcok + "&diebod=" + dbod 
 		print(finalurl)
 		print("\n\n")
 
 
-		flow.request.host = "throbbing-haze-xxx.xxx.workers.dev"
+		flow.request.host = "xx-hill-744d.xxx.workers.dev"
 		flow.request.path = finalurl
 		flow.request.method = "GET"
 		flow.request.port = 443
@@ -51,11 +60,11 @@ class multiproxy:
 
 		print(flow.request)
 
-		#self.num = self.num + 1
+		
 		upserv = "127.0.0.1"
 		uport = 8082
-		address = (upserv, uport)
-		flow.server_conn = Server(flow.server_conn.address)
-		flow.server_conn.via = ServerSpec("http", address)
+		#address = (upserv, uport)
+		#flow.server_conn = Server(flow.server_conn.address)
+		#flow.server_conn.via = ServerSpec("http", address)
 	    
 addons = [multiproxy()]
