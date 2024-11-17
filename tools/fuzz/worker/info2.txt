@@ -1,4 +1,6 @@
 nuclei -u https://monster.com
 nuclei -u https://monster.com -p http://127.0.0.1:8080 -rl 10
+nuclei -l monster-domains.txt -p http://127.0.0.1:8080 -rl 10 -o monster-log
+
 ./mitmweb --set block_global=false --ssl-insecure -s multiproxy-injection.py
 ./mitmdump --set block_global=false --ssl-insecure -s multiproxy-injection.py
