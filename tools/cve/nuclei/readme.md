@@ -15,8 +15,8 @@ cd ..
 +/root/nuclei-templates</code>
 
 <hr>
-<a href='https://github.com/dewebdes/ZedAlert/blob/main/tools/fuzz/nuclei/universal.txt'>UNIVERSAL VARABLES</a>
+<a href='https://github.com/dewebdes/ZedAlert/blob/main/tools/cve/nuclei/universal.txt'>UNIVERSAL VARABLES</a>
 <hr>
 <a href="https://www.linkedin.com/posts/eyni-kave_aetaebaesaev-aepaeqaeaaepaez-aevagp-activity-7264008069435551745-7vXG">
-<img src="https://github.com/dewebdes/ZedAlert/blob/main/tools/fuzz/nuclei/kali-linkos.jpeg">
+<img src="https://github.com/dewebdes/ZedAlert/blob/main/tools/cve/nuclei/kali-linkos.jpeg">
 </a>
