@@ -1,0 +1,106 @@
+root@escobar:/zalert/temp/fuzz# ./ffuf -u http://FUZZ.monster.com -w sub_rand_3000000_11582871.txt -x http://192.168.189.130:8080 -of json -o monster-sub-fuzz.jser-log-3M.ffuf
+
+        /'___\  /'___\           /'___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
+
+       v2.1.0
+________________________________________________
+
+ :: Method           : GET
+ :: URL              : http://FUZZ.monster.com
+ :: Wordlist         : FUZZ: /zalert/temp/fuzz/sub_rand_3000000_11582871.txt
+ :: Output file      : monster-sub-fuzz.jser-log-3M.ffuf
+ :: File format      : json
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Proxy            : http://192.168.189.130:8080
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
+________________________________________________
+
+gtm-t94kzwh-mdc0o.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2323ms]
+gtm-n97ghm6-ngnmn.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1905ms]
+metroplex-dot-noibu-unicron.uc.r [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1795ms]
+gtm-m47szrrx-ymexy.uc.r [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 3274ms]
+gtm-5t6qwvc-ndyxn.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1666ms]
+gtm-tvl8n92-odq4n.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1900ms]
+w.d.r                   [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1894ms]
+gtm-wmpkdz9-mthiz.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2188ms]
+gtm-kfh7bkt-nza1m.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1659ms]
+gtm-nbmcnfm-nti0y.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1749ms]
+gtm-wjsnd84-mdy5m.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2662ms]
+gtm-w7vqfq8-njnio.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1724ms]
+gtm-tsbzdm4-mju3m.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2533ms]
+gtm-m7vvskj-nji5m.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 3556ms]
+gtm-pv3vs48-zju1y.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2289ms]
+gtm-p4p8wxm-ytmyz.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1727ms]
+gtm-pflxslv-ngvmm.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1973ms]
+gtm-k9dgdxc-zgriy.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1837ms]
+gtm-mcxmphf-mjuxz.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1660ms]
+cl.promo                [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1533ms]
+gtm-tgltkcv-zwqzo.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1807ms]
+gtm-5vf6lmm-mmjmm.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1620ms]
+gtm-pj542z3-n2jhn.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1922ms]
+gtm-n22tbdv-mmiyz.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1639ms]
+gtm-mxx3f75-mtczo.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1855ms]
+gtm-mtmd765-ywu1z.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2580ms]
+screenmirroring.uc.r    [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2044ms]
+gtm-p93z6fn-zgrjm.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2254ms]
+gtm-td33vbw-zduxn.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1764ms]
+gtm-pkb5n5h-m2e5m.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2414ms]
+gtm-wrvjk8k-odk5o.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2196ms]
+gtm-mkvggr5-ymewy.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1980ms]
+gtm-kbp9rtg-nmeym.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1839ms]
+gtm-5lxc93nb-nza2o.uc.r [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1808ms]
+gtm-ksjrt3w-mtk3y.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1914ms]
+gtm-krppvbv-mgi2n.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 4253ms]
+gtm-ncknd6d-yzfly.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1806ms]
+web-api-dot-area120-jara.uc.r [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1743ms]
+mta196s1.r              [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2448ms]
+gtm-n2zbwwq-zjm2m.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1735ms]
+gtm-npjcjp7-zgy1o.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1621ms]
+gtm-wpcxd4r-mty4y.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2654ms]
+gtm-t32mvgfv-mtg4n.uc.r [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1570ms]
+lettuce-contact-dot-shopify-it-apps.nn.r [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1704ms]
+gtm-mpdqmm6-nddkz.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1687ms]
+littonbrakes-services.rj.r [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1734ms]
+gtm-nw4xv7w-yzy0y.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1404ms]
+gtm-5wsxq2s-mme4y.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 3631ms]
+gtm-5htkccj-nju1n.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 4369ms]
+hiring.daltondailycitizen [Status: 200, Size: 30897, Words: 4889, Lines: 657, Duration: 3898ms]
+gtm-k4v7jns-mjziz.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2074ms]
+gtm-k23rzwr-mte4m.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1781ms]
+gtm-p3wqbq5-ngjmy.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1737ms]
+gtm-m2mbqt8b-ztvhy.uc.r [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1831ms]
+gtm-mlz4rcs-ngzim.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1736ms]
+gtm-kdtvhcl-zda3y.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1577ms]
+gtm-nltgblf-ntmxz.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1766ms]
+gtm-nw2fngd-yzlhm.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1732ms]
+gtm-52gvdcp-zdlko.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 3162ms]
+gtm-w6w2llt-ngnly.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1812ms]
+gtm-ms98jsr-ytbkz.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1729ms]
+dienmay-danang.r        [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1580ms]
+latex.r                 [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1598ms]
+gtm-md78wpx-zdazm.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1795ms]
+gtm-nz5nrkb-ndq1y.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1691ms]
+gtm-5whpm9q-ngmzy.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1724ms]
+gtm-tpdr3nn-ywiwy.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1625ms]
+quicktour               [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1369ms]
+2311cdn.r               [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1500ms]
+alerts                  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1166ms]
+gtm-tkcb665-zwqyn.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2676ms]
+gtm-w8k7jdh-mza1y.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1754ms]
+static-gafaba.r         [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1500ms]
+wwwtst2.cms.r           [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1917ms]
+dev.promo               [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1461ms]
+gtm-kzgmvwf-mju5y.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1836ms]
+gtm-nhc9r99-mzq2m.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1926ms]
+gtm-nmjb4w2-mtdmo.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 7334ms]
+gtm-w4fk5jn-mmiyo.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 2331ms]
+gtm-tshbfnb-othin.uc.r  [Status: 200, Size: 135687, Words: 4894, Lines: 532, Duration: 1765ms]
+:: Progress: [3000000/3000000] :: Job [1/1] :: 1980 req/sec :: Duration: [1:47:28] :: Errors: 2855159 ::
